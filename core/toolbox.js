@@ -81,7 +81,7 @@ Blockly.Toolbox.createDom = function(svg, container) {
    * @private
    */
   Blockly.Toolbox.flyout_ = new Blockly.Flyout();
-  Blockly.Toolbox.flyout_.hide = function() {};
+  //Blockly.Toolbox.flyout_.hide = function() {};
   svg.appendChild(Blockly.Toolbox.flyout_.createDom());
 
   // Clicking on toolbar closes popups.
