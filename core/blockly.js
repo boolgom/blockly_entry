@@ -34,6 +34,7 @@ goog.require('Blockly.FieldAngle');
 goog.require('Blockly.FieldCheckbox');
 goog.require('Blockly.FieldColour');
 goog.require('Blockly.FieldDropdown');
+goog.require('Blockly.FieldDropdownDynamic');
 goog.require('Blockly.FieldImage');
 goog.require('Blockly.FieldTextInput');
 goog.require('Blockly.FieldVariable');
@@ -467,6 +468,7 @@ Blockly.hideChaff = function(opt_allowToolbox) {
   Blockly.Tooltip && Blockly.Tooltip.hide();
   Blockly.ContextMenu && Blockly.ContextMenu.hide();
   Blockly.FieldDropdown && Blockly.FieldDropdown.hide();
+  Blockly.FieldDropdownDynamic && Blockly.FieldDropdownDynamic.hide();
   Blockly.WidgetDiv.hide();
   if (!opt_allowToolbox &&
       Blockly.Toolbox.flyout_ && Blockly.Toolbox.flyout_.autoClose) {
