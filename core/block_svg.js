@@ -38,13 +38,13 @@ Blockly.BlockSvg = function(block) {
   this.block_ = block;
   // Create core elements for the block.
   this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.svgPathDark_ = Blockly.createSvgElement('path',
-      {'class': 'blocklyPathDark', 'transform': 'translate(1, 1)'},
-      this.svgGroup_);
+//this.svgPathDark_ = Blockly.createSvgElement('path',
+//    {'class': 'blocklyPathDark', 'transform': 'translate(1, 1)'},
+//    this.svgGroup_);
   this.svgPath_ = Blockly.createSvgElement('path', {'class': 'blocklyPath'},
       this.svgGroup_);
-  this.svgPathLight_ = Blockly.createSvgElement('path',
-      {'class': 'blocklyPathLight'}, this.svgGroup_);
+//this.svgPathLight_ = Blockly.createSvgElement('path',
+//    {'class': 'blocklyPathLight'}, this.svgGroup_);
   this.svgPath_.tooltip = this.block_;
   Blockly.Tooltip && Blockly.Tooltip.bindMouseEvents(this.svgPath_);
   this.updateMovable();
@@ -157,7 +157,8 @@ Blockly.BlockSvg.DISTANCE_45_OUTSIDE = (1 - Math.SQRT1_2) *
  * SVG path for drawing next/previous notch from left to right.
  * @const
  */
-Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 6,4 3,0 6,-4';
+//Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 6,4 3,0 6,-4';
+Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 7.5,7 7.5,-7';
 /**
  * SVG path for drawing next/previous notch from left to right with
  * highlighting.
@@ -168,7 +169,8 @@ Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT = 'l 6.5,4 2,0 6.5,-4';
  * SVG path for drawing next/previous notch from right to left.
  * @const
  */
-Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -6,4 -3,0 -6,-4';
+//Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -6,4 -3,0 -6,-4';
+Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -7.5,7 -7.5,-7';
 /**
  * SVG path for drawing jagged teeth at the end of collapsed blocks.
  * @const
@@ -403,8 +405,8 @@ Blockly.BlockSvg.prototype.updateColour = function() {
   var rgb = goog.color.hexToRgb(hexColour);
   var rgbLight = goog.color.lighten(rgb, 0.3);
   var rgbDark = goog.color.darken(rgb, 0.4);
-  this.svgPathLight_.setAttribute('stroke', goog.color.rgbArrayToHex(rgbLight));
-  this.svgPathDark_.setAttribute('fill', goog.color.rgbArrayToHex(rgbDark));
+//this.svgPathLight_.setAttribute('stroke', goog.color.rgbArrayToHex(rgbLight));
+//this.svgPathDark_.setAttribute('fill', goog.color.rgbArrayToHex(rgbDark));
   this.svgPath_.setAttribute('fill', hexColour);
 };
 
@@ -721,14 +723,14 @@ Blockly.BlockSvg.prototype.renderDraw_ = function(iconWidth, inputRows) {
 
   var pathString = steps.join(' ') + '\n' + inlineSteps.join(' ');
   this.svgPath_.setAttribute('d', pathString);
-  this.svgPathDark_.setAttribute('d', pathString);
-  pathString = highlightSteps.join(' ') + '\n' + highlightInlineSteps.join(' ');
-  this.svgPathLight_.setAttribute('d', pathString);
+//this.svgPathDark_.setAttribute('d', pathString);
+//pathString = highlightSteps.join(' ') + '\n' + highlightInlineSteps.join(' ');
+//this.svgPathLight_.setAttribute('d', pathString);
   if (Blockly.RTL) {
     // Mirror the block's path.
     this.svgPath_.setAttribute('transform', 'scale(-1 1)');
-    this.svgPathLight_.setAttribute('transform', 'scale(-1 1)');
-    this.svgPathDark_.setAttribute('transform', 'translate(1,1) scale(-1 1)');
+//  this.svgPathLight_.setAttribute('transform', 'scale(-1 1)');
+//  this.svgPathDark_.setAttribute('transform', 'translate(1,1) scale(-1 1)');
   }
 };
 
@@ -743,7 +745,8 @@ Blockly.BlockSvg.prototype.renderDraw_ = function(iconWidth, inputRows) {
 Blockly.BlockSvg.prototype.renderDrawTop_ =
     function(steps, highlightSteps, connectionsXY, rightEdge) {
   // Position the cursor at the top-left starting point.
-  if (this.squareTopLeftCorner_) {
+//if (this.squareTopLeftCorner_) {
+  if (true) {
     steps.push('m 0,0');
     highlightSteps.push('m 1,1');
   } else {
@@ -1070,7 +1073,8 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, highlightSteps,
     steps.push('c 0,5 0,-5 0,0');
   }
   // Should the bottom-left corner be rounded or square?
-  if (this.squareBottomLeftCorner_) {
+//if (this.squareBottomLeftCorner_) {
+  if (true) {
     steps.push('H 0');
     if (!Blockly.RTL) {
       highlightSteps.push('M', '1,' + cursorY);
