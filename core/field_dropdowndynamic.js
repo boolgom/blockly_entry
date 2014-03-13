@@ -43,9 +43,11 @@ goog.require('Blockly.Field');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldDropdownDynamic = function(menuGenerator, opt_changeHandler) {
-  this.menuGenerator_ = menuGenerator;
-  this.menuGenerator_ = [['gamja','tiggem'], ['da','naggeoya']];
+Blockly.FieldDropdownDynamic = function(menuName, opt_changeHandler) {
+  //document.addEventListener("cust", this.updateMenu_, false);
+  //this.menuGenerator_ = menuGenerator;
+  this.menuName_ = menuName;
+  this.menuGenerator = this.getOptions_();
   this.changeHandler_ = opt_changeHandler;
   this.trimOptions_();
   var firstTuple = this.getOptions_()[0];
@@ -60,6 +62,14 @@ Blockly.FieldDropdownDynamic = function(menuGenerator, opt_changeHandler) {
   Blockly.FieldDropdownDynamic.superClass_.constructor.call(this, firstTuple[0]);
 };
 goog.inherits(Blockly.FieldDropdownDynamic, Blockly.Field);
+
+/*
+Blockly.FieldDropdownDynamic.prototype.updateMenu_ = function(e) {
+    console.log("updated!");
+  this.menuGenerator_ = [['gamja','tiggem'], ['da','naggeoya'], ['grigo', 'igeotto']];
+    return true;
+};
+*/
 
 /**
  * Clone this FieldDropdownDynamic.
@@ -242,6 +252,7 @@ Blockly.FieldDropdownDynamic.prototype.showEditor_ = function() {
  * @private
  */
 Blockly.FieldDropdownDynamic.prototype.trimOptions_ = function() {
+  return; //ignore trim feature
   this.prefixField = null;
   this.suffixField = null;
   var options = this.menuGenerator_;
@@ -283,6 +294,7 @@ Blockly.FieldDropdownDynamic.prototype.trimOptions_ = function() {
  * @private
  */
 Blockly.FieldDropdownDynamic.prototype.getOptions_ = function() {
+    this.menuGenerator_ = Entry.getMenu(this.menuName_);
   if (goog.isFunction(this.menuGenerator_)) {
     return this.menuGenerator_.call(this);
   }
@@ -363,7 +375,6 @@ Blockly.FieldDropdownDynamic.prototype.setText = function(text) {
  * Hide the dropdown menu.
  */
 Blockly.FieldDropdownDynamic.hide = function() {
-    console.log("asdf");
   var svgGroup = Blockly.FieldDropdown.svgGroup_;
   if (svgGroup) {
     Blockly.addClass_(svgGroup, 'blocklyHidden');
