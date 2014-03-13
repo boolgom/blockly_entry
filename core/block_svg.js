@@ -128,12 +128,12 @@ Blockly.BlockSvg.TAB_WIDTH = 8;
  * Width of vertical tab (inc left margin).
  * @const
  */
-Blockly.BlockSvg.NOTCH_WIDTH = 30;
+Blockly.BlockSvg.NOTCH_WIDTH = 20;
 /**
  * Rounded corner radius.
  * @const
  */
-Blockly.BlockSvg.CORNER_RADIUS = 8;
+Blockly.BlockSvg.CORNER_RADIUS = 1;
 /**
  * Minimum height of field rows.
  * @const
@@ -805,6 +805,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
     cursorX = Blockly.BlockSvg.SEP_SPACE_X;
     if (y == 0) {
       cursorX += Blockly.RTL ? -iconWidth : iconWidth;
+    }
+    if (y == 0 && !this.block_.outputConnection) {
+      cursorX += 18;
     }
     highlightSteps.push('M', (inputRows.rightEdge - 1) + ',' + (cursorY + 1));
     if (this.block_.isCollapsed()) {
