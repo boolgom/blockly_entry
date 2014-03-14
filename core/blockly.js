@@ -91,9 +91,12 @@ Blockly.HSV_VALUE = 0.65;
  * @param {number} hue Hue on a colour wheel (0-360).
  * @return {string} RGB code, e.g. '#5ba65b'.
  */
-Blockly.makeColour = function(hue) {
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 256);
+Blockly.makeColour = function(colorCode) {
+  if (typeof(colorCode) == "number")
+    return goog.color.hsvToHex(colorCode, Blockly.HSV_SATURATION,
+        Blockly.HSV_VALUE * 256);
+  else
+    return colorCode;
 };
 
 /**

@@ -1033,7 +1033,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
         if (Blockly.RTL) {
           highlightSteps.push('v', Blockly.BlockSvg.SEP_SPACE_Y - 1);
         }
-        cursorY += Blockly.BlockSvg.SEP_SPACE_Y * 1.5;
+        cursorY += Blockly.BlockSvg.SEP_SPACE_Y + 1;
       }
     }
     cursorY += row.height;
