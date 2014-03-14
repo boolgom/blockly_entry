@@ -1182,7 +1182,6 @@ Blockly.Block.prototype.setColour = function(colourHue) {
  * @private
  */
 Blockly.Block.prototype.getField_ = function(name) {
-    console.log(this.inputList);
   for (var x = 0, input; input = this.inputList[x]; x++) {
     for (var y = 0, field; field = input.fieldRow[y]; y++) {
       if (field.name === name) {

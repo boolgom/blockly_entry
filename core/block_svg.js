@@ -241,7 +241,7 @@ Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT =
  */
 Blockly.BlockSvg.INNER_TOP_LEFT_CORNER =
     Blockly.BlockSvg.NOTCH_PATH_RIGHT + ' h -' +
-    (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) +
+    (Blockly.BlockSvg.NOTCH_WIDTH - 14 - Blockly.BlockSvg.CORNER_RADIUS) +
     ' a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' +
     Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 -' +
     Blockly.BlockSvg.CORNER_RADIUS + ',' +
@@ -801,6 +801,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
   var cursorX;
   var cursorY = 0;
   var connectionX, connectionY;
+  var blockWidth;
   for (var y = 0, row; row = inputRows[y]; y++) {
     cursorX = Blockly.BlockSvg.SEP_SPACE_X;
     if (y == 0) {
@@ -842,6 +843,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
           cursorX += input.renderWidth + Blockly.BlockSvg.SEP_SPACE_X;
         }
         if (input.type == Blockly.INPUT_VALUE) {
+            //puzzle like part
           inlineSteps.push('M', (cursorX - Blockly.BlockSvg.SEP_SPACE_X) +
                            ',' + (cursorY + Blockly.BlockSvg.INLINE_PADDING_Y));
           inlineSteps.push('h', Blockly.BlockSvg.TAB_WIDTH - input.renderWidth);
@@ -897,6 +899,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       }
 
       cursorX = Math.max(cursorX, inputRows.rightEdge);
+      blockWidth = cursorX;
       steps.push('H', cursorX);
       highlightSteps.push('H', cursorX + (Blockly.RTL ? -1 : 0));
       steps.push('v', row.height);
@@ -987,9 +990,13 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       cursorX = inputRows.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH;
       steps.push('H', cursorX);
       steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
-      steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
+//    steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
+      steps.push('v', row.height - 7 + 2);
       steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
-      steps.push('H', inputRows.rightEdge);
+//    steps.push('H', inputRows.rightEdge);
+      steps.push('H', 25);
+      steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
+      steps.push('H', blockWidth);
       if (Blockly.RTL) {
         highlightSteps.push('M',
             (cursorX - Blockly.BlockSvg.NOTCH_WIDTH +
@@ -1022,11 +1029,11 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
           inputRows[y + 1].type == Blockly.NEXT_STATEMENT) {
         // If the final input is a statement stack, add a small row underneath.
         // Consecutive statement stacks are also separated by a small divider.
-        steps.push('v', Blockly.BlockSvg.SEP_SPACE_Y);
+        steps.push('v', Blockly.BlockSvg.SEP_SPACE_Y * 1.5);
         if (Blockly.RTL) {
           highlightSteps.push('v', Blockly.BlockSvg.SEP_SPACE_Y - 1);
         }
-        cursorY += Blockly.BlockSvg.SEP_SPACE_Y;
+        cursorY += Blockly.BlockSvg.SEP_SPACE_Y * 1.5;
       }
     }
     cursorY += row.height;
