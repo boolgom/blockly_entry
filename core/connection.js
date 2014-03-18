@@ -348,7 +348,8 @@ Blockly.Connection.prototype.highlight = function() {
     if (Blockly.RTL) {
       steps = 'm 20,0 h -5 l -6,4 -3,0 -6,-4 h -5';
     } else {
-      steps = 'm -20,0 h 5 l 6,4 3,0 6,-4 h 5';
+//    steps = 'm -20,0 h 5 l 6,4 3,0 6,-4 h 5';
+      steps = 'm -20,0 h 8';
     }
   }
   var xy = this.sourceBlock_.getRelativeToSurfaceXY();

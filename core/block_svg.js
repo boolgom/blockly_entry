@@ -158,7 +158,7 @@ Blockly.BlockSvg.DISTANCE_45_OUTSIDE = (1 - Math.SQRT1_2) *
  * @const
  */
 //Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 6,4 3,0 6,-4';
-Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 7.5,7 7.5,-7';
+Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l 15,0';
 /**
  * SVG path for drawing next/previous notch from left to right with
  * highlighting.
@@ -170,7 +170,7 @@ Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT = 'l 6.5,4 2,0 6.5,-4';
  * @const
  */
 //Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -6,4 -3,0 -6,-4';
-Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -7.5,7 -7.5,-7';
+Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l -15,0';
 /**
  * SVG path for drawing jagged teeth at the end of collapsed blocks.
  * @const
@@ -807,9 +807,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
     if (y == 0) {
       cursorX += Blockly.RTL ? -iconWidth : iconWidth;
     }
-    if (y == 0 && !this.block_.outputConnection) {
-      cursorX += 18;
-    }
+//  if (y == 0 && !this.block_.outputConnection) {
+//    cursorX += 18;
+//  }
     highlightSteps.push('M', (inputRows.rightEdge - 1) + ',' + (cursorY + 1));
     if (this.block_.isCollapsed()) {
       // Jagged right edge.
