@@ -343,7 +343,7 @@ Blockly.Flyout.prototype.show = function(xmlList) {
         var block = Blockly.Xml.domToBlock(
             /** @type {!Blockly.Workspace} */ (this.workspace_), xml);
         blocks.push(block);
-        gaps.push(margin * 3);
+        gaps.push(margin);
       }
     }
   }
@@ -365,7 +365,7 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     block.render();
     var root = block.getSvgRoot();
     var blockHW = block.getHeightWidth();
-    var x = Blockly.RTL ? 0 : margin + Blockly.BlockSvg.TAB_WIDTH;
+    var x = Blockly.RTL ? 0 : margin + Blockly.BlockSvg.TAB_WIDTH * 0.5;
     block.moveBy(x, cursorY);
     cursorY += blockHW.height + gaps[i];
 
