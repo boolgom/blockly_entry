@@ -562,6 +562,7 @@ Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
     }
     // Start a dragging operation on the new block.
     block.onMouseDown_(e);
+    Blockly.mainWorkspace.flyout_.hide();
   };
 };
 
