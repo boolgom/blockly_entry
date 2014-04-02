@@ -128,6 +128,9 @@ Blockly.Xml.blockToDom_ = function(block) {
   if (!block.isMovable()) {
     element.setAttribute('movable', false);
   }
+  if (!block.isAddable()) {
+    element.setAttribute('addable', false);
+  }
   if (!block.isEditable()) {
     element.setAttribute('editable', false);
   }
@@ -280,6 +283,10 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
   var movable = xmlBlock.getAttribute('movable');
   if (movable) {
     block.setMovable(movable == 'true');
+  }
+  var addable = xmlBlock.getAttribute('addable');
+  if (addable) {
+    block.setAddable(addable == 'true');
   }
   var editable = xmlBlock.getAttribute('editable');
   if (editable) {

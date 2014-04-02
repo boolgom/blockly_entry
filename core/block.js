@@ -130,6 +130,7 @@ Blockly.Block.prototype.fill = function(workspace, prototypeName) {
   this.childBlocks_ = [];
   this.deletable_ = true;
   this.movable_ = true;
+  this.addable_ = true;
   this.editable_ = true;
   this.collapsed_ = false;
 
@@ -1107,6 +1108,21 @@ Blockly.Block.prototype.isMovable = function() {
  */
 Blockly.Block.prototype.setMovable = function(movable) {
   this.movable_ = movable;
+};
+
+/**
+ * Set whether this block is addable or not.
+ * @param {boolean} addable True if addable.
+ */
+Blockly.Block.prototype.setAddable = function(addable) {
+  this.addable_ = addable;
+};
+/**
+ * Get whether this block is addable or not.
+ * @return {boolean} True if addable.
+ */
+Blockly.Block.prototype.isAddable = function() {
+  return this.addable_ && !Blockly.readOnly;
 };
 
 /**
