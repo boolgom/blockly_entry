@@ -384,6 +384,10 @@ Blockly.Flyout.prototype.show = function(xmlList) {
       this.listeners_.push(Blockly.bindEvent_(root, 'mousedown', null,
           this.blockMouseDown_(block)));
     }
+    if (Entry && block.type == "make_variable") {
+      Blockly.bindEvent_(root, 'mousedown', null,
+        function () {Entry.createVariable();});
+    }
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
         block.svg_.addSelect));
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
@@ -562,7 +566,9 @@ Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
     }
     // Start a dragging operation on the new block.
     block.onMouseDown_(e);
-    Entry.scope.selectCategory(null);
+    if (Entry) {
+      Entry.scope.selectCategory(null);
+    }
   };
 };
 
