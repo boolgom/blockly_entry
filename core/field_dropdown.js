@@ -87,9 +87,9 @@ Blockly.FieldDropdown.createDom = function() {
   Blockly.FieldDropdown.svgGroup_ = svgGroup;
   Blockly.FieldDropdown.svgShadow_ = Blockly.createSvgElement('rect',
       {'class': 'blocklyDropdownMenuShadow',
-      'x': 0, 'y': 1, 'rx': 2, 'ry': 2}, svgGroup);
+      'x': 0, 'y': 1}, svgGroup);
   Blockly.FieldDropdown.svgBackground_ = Blockly.createSvgElement('rect',
-      {'x': -2, 'y': -1, 'rx': 2, 'ry': 2,
+      {'x': -2, 'y': -1,
       'filter': 'url(#blocklyEmboss)'}, svgGroup);
   Blockly.FieldDropdown.svgOptions_ = Blockly.createSvgElement('g',
       {'class': 'blocklyDropdownMenuOptions'}, svgGroup);

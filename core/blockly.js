@@ -272,7 +272,7 @@ Blockly.onMouseDown_ = function(e) {
   if (Blockly.isRightButton(e)) {
     // Right-click.
     if (Blockly.ContextMenu) {
-      Blockly.showContextMenu_(Blockly.mouseToSvg(e));
+      //Blockly.showContextMenu_(Blockly.mouseToSvg(e));
     }
   } else if ((Blockly.readOnly || isTargetSvg) &&
              Blockly.mainWorkspace.scrollbar) {

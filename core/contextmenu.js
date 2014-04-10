@@ -60,10 +60,10 @@ Blockly.ContextMenu.createDom = function() {
   Blockly.ContextMenu.svgGroup = svgGroup;
   Blockly.ContextMenu.svgShadow = Blockly.createSvgElement('rect',
       {'class': 'blocklyContextMenuShadow',
-      'x': 2, 'y': -2, 'rx': 4, 'ry': 4}, svgGroup);
+      'x': 2, 'y': -2}, svgGroup);
   Blockly.ContextMenu.svgBackground = Blockly.createSvgElement('rect',
       {'class': 'blocklyContextMenuBackground',
-      'y': -4, 'rx': 4, 'ry': 4}, svgGroup);
+      'y': -4}, svgGroup);
   Blockly.ContextMenu.svgOptions = Blockly.createSvgElement('g',
       {'class': 'blocklyContextMenuOptions'}, svgGroup);
   return svgGroup;
