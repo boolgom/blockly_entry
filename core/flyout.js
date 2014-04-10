@@ -245,17 +245,22 @@ Blockly.Flyout.prototype.position_ = function() {
   if (Blockly.RTL) {
     edgeWidth *= -1;
   }
+  // var path = ['M ' + (Blockly.RTL ? this.width_ : 0) + ',0'];
+  // path.push('h', edgeWidth);
+  // path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
+  //     Blockly.RTL ? 0 : 1,
+  //     Blockly.RTL ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
+  //     this.CORNER_RADIUS);
+  // path.push('v', Math.max(0, metrics.viewHeight - this.CORNER_RADIUS * 2));
+  // path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
+  //     Blockly.RTL ? 0 : 1,
+  //     Blockly.RTL ? this.CORNER_RADIUS : -this.CORNER_RADIUS,
+  //     this.CORNER_RADIUS);
+  // path.push('h', -edgeWidth);
+  // path.push('z');
   var path = ['M ' + (Blockly.RTL ? this.width_ : 0) + ',0'];
   path.push('h', edgeWidth);
-  path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
-      Blockly.RTL ? 0 : 1,
-      Blockly.RTL ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
-      this.CORNER_RADIUS);
-  path.push('v', Math.max(0, metrics.viewHeight - this.CORNER_RADIUS * 2));
-  path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
-      Blockly.RTL ? 0 : 1,
-      Blockly.RTL ? this.CORNER_RADIUS : -this.CORNER_RADIUS,
-      this.CORNER_RADIUS);
+  path.push('v', Math.max(0, metrics.viewHeight));
   path.push('h', -edgeWidth);
   path.push('z');
   this.svgBackground_.setAttribute('d', path.join(' '));

@@ -243,7 +243,7 @@ Blockly.createDom_ = function(container) {
       flyout.init(Blockly.mainWorkspace, true);
       flyout.autoClose = false;
       // Insert the flyout behind the workspace so that blocks appear on top.
-      goog.dom.insertSiblingBefore(flyoutSvg, Blockly.mainWorkspace.svgGroup_);
+      goog.dom.insertSiblingAfter(flyoutSvg, Blockly.mainWorkspace.svgGroup_);
       var workspaceChanged = function() {
         if (Blockly.Block.dragMode_ == 0) {
           var metrics = Blockly.mainWorkspace.getMetrics();
