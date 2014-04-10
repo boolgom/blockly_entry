@@ -769,7 +769,7 @@ Blockly.BlockSvg.prototype.renderDrawTop_ =
      WebKit bug 67298 causes control points to be included in the reported
      bounding box.  Add 5px control point to the top of the path.
     */
-    //steps.push('c 0,5 0,-5 0,0');
+    steps.push('c 0,5 0,-5 0,0');
   }
 
   // Top edge.
@@ -1101,7 +1101,7 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, highlightSteps,
      WebKit bug 67298 causes control points to be included in the reported
      bounding box.  Add 5px control point to the bottom of the path.
     */
-    //steps.push('c 0,5 0,-5 0,0');
+    steps.push('c 0,5 0,-5 0,0');
   }
   // Should the bottom-left corner be rounded or square?
 //if (this.squareBottomLeftCorner_) {
