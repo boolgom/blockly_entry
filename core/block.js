@@ -1052,7 +1052,8 @@ Blockly.Block.prototype.setParent = function(newParent) {
 
     var oldXY = this.getRelativeToSurfaceXY();
     if (newParent.svg_ && this.svg_) {
-      newParent.svg_.getRootElement().appendChild(this.svg_.getRootElement());
+      newParent.svg_.getRootElement().insertBefore(this.svg_.getRootElement(),
+        newParent.svg_.svgPath_);
     }
     var newXY = this.getRelativeToSurfaceXY();
     // Move the connections to match the child's new position.
