@@ -392,6 +392,12 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     if (typeof(Entry) == "object" && block.type == "make_variable") {
       Blockly.bindEvent_(root, 'mousedown', null,
         function () {Entry.createVariable();});
+    } else if (typeof(Entry) == "object" && block.type == "add_message") {
+      Blockly.bindEvent_(root, 'mousedown', null,
+        function () {Entry.createMessage();});
+    } else if (typeof(Entry) == "object" && block.type == "remove_variable") {
+      Blockly.bindEvent_(root, 'mousedown', null,
+        function () {Entry.removeVariable(this);});
     }
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
         block.svg_.addSelect));

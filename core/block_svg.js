@@ -767,7 +767,7 @@ Blockly.BlockSvg.prototype.renderDrawTop_ =
     var connectionY = connectionsXY.y;
     this.block_.previousConnection.moveTo(connectionX, connectionY);
     // This connection will be tightened when the parent renders.
-  } else if (!this.block_.outputConnection) {
+  } else if (!this.block_.outputConnection && this.block_.nextConnection) {
     steps.push('c', '20,-10 40,-10 60,-5');
     steps.push('c', '15,5 30,5 40,5');
   }
