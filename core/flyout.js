@@ -371,6 +371,8 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     var root = block.getSvgRoot();
     var blockHW = block.getHeightWidth();
     var x = Blockly.RTL ? 0 : margin + Blockly.BlockSvg.TAB_WIDTH * 0.5;
+    if (block.outputConnection)
+        x += blockHW.height/2;
     block.moveBy(x, cursorY);
     cursorY += blockHW.height + gaps[i];
 
