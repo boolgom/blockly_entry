@@ -515,6 +515,7 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
     return;
   } else {
     // Left-click (or middle click)
+    this.isDrag = false;
     Blockly.removeAllRanges();
     Blockly.setCursorHand_(true);
     // Look up the current translation and record it.
@@ -545,6 +546,9 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
   e.stopPropagation();
 };
 
+Blockly.Block.prototype.onMouseMove_ = function(e) {
+};
+
 /**
  * Handle a mouse-up anywhere in the SVG pane.  Is only registered when a
  * block is clicked.  We can't use mouseUp on the block since a fast-moving
@@ -553,6 +557,9 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
  * @private
  */
 Blockly.Block.prototype.onMouseUp_ = function(e) {
+  if (!this.isDrag && typeof(Entry) == "object") {
+    Entry.fireInstantEvent(this.id);
+  };
   Blockly.terminateDrag_();
   if (Blockly.selected && Blockly.highlightedConnection_) {
     // Connect two blocks together.
@@ -829,6 +836,7 @@ Blockly.Block.prototype.setDragging_ = function(adding) {
  * @private
  */
 Blockly.Block.prototype.onMouseMove_ = function(e) {
+  this.isDrag = true;
   if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
       e.button == 0) {
     /* HACK:
