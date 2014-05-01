@@ -399,7 +399,10 @@ Blockly.Flyout.prototype.show = function(xmlList) {
         function () {Entry.createMessage();});
     } else if (typeof(Entry) == "object" && block.type == "remove_variable") {
       Blockly.bindEvent_(root, 'mousedown', null,
-        function () {Entry.removeVariable(this);});
+        function () {Entry.removeVariable();});
+    } else if (typeof(Entry) == "object" && block.type == "change_variable_name") {
+      Blockly.bindEvent_(root, 'mousedown', null,
+        function () {Entry.changeVariableName();});
     }
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
         block.svg_.addSelect));
