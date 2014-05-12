@@ -47,7 +47,7 @@ Blockly.Field = function(text) {
       {'rx': 0,
        'ry': 0,
        'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
-       'y': -12,
+       'y': -13,
        'height': 16}, this.fieldGroup_);
   this.textElement_ = Blockly.createSvgElement('text',
       {'class': 'blocklyText'}, this.fieldGroup_);
@@ -117,11 +117,16 @@ Blockly.Field.prototype.updateEditable = function() {
     return;
   }
   if (this.sourceBlock_.isEditable()) {
-    Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
-                      'blocklyEditableText');
+    if (this.arrow_ || this.symbol_)
+      Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+                  'blocklyEditableField');
+    else
+      Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+                  'blocklyEditableText');
     Blockly.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
                          'blocklyNoNEditableText');
     this.fieldGroup_.style.cursor = this.CURSOR;
+
   } else {
     Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
                       'blocklyNonEditableText');
