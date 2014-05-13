@@ -217,10 +217,6 @@ Blockly.Block.prototype.initSvg = function() {
   if (!Blockly.readOnly) {
     Blockly.bindEvent_(this.svg_.getRootElement(), 'mousedown', this,
                        this.onMouseDown_);
-    Blockly.bindEvent_(this.svg_.getRootElement(), 'mousemove', this,
-                       this.onMouseMove_);
-    Blockly.bindEvent_(this.svg_.getRootElement(), 'mouseup', this,
-                       this.onMouseUp_);
   }
   this.workspace.getCanvas().appendChild(this.svg_.getRootElement());
 };
