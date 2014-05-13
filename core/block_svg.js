@@ -450,6 +450,8 @@ Blockly.BlockSvg.prototype.addSelect = function() {
 Blockly.BlockSvg.prototype.removeSelect = function() {
   Blockly.removeClass_(/** @type {!Element} */ (this.svgGroup_),
                        'blocklySelected');
+  Blockly.removeClass_(/** @type {!Element} */ (this.svgGroup_),
+                       'blocklyActivated');
 };
 
 /**

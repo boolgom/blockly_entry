@@ -97,6 +97,7 @@ Blockly.parseOptions_ = function(options) {
       hasScrollbars = true;
     }
   }
+  hasScrollbars = true;
   return {
     RTL: !!options['rtl'],
     collapse: hasCollapse,

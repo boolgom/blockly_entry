@@ -308,6 +308,20 @@ Blockly.Block.prototype.select = function() {
 };
 
 /**
+ * Activate this block.  Highlight it visually.
+ */
+Blockly.Block.prototype.activate = function() {
+  goog.asserts.assertObject(this.svg_, 'Block is not rendered.');
+  if (Blockly.selected) {
+    // Unselect any previously selected block.
+    Blockly.selected.unselect();
+  }
+  Blockly.selected = this;
+  this.svg_.addActive();
+  Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
+};
+
+/**
  * Unselect this block.  Remove its highlighting.
  */
 Blockly.Block.prototype.unselect = function() {
@@ -509,6 +523,7 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
   Blockly.hideChaff();
   if (Blockly.isRightButton(e)) {
     // Right-click.
+    this.isDrag = true;
     if (Blockly.ContextMenu) {
       this.showContextMenu_(Blockly.mouseToSvg(e));
     }

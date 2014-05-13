@@ -91,7 +91,7 @@ Blockly.Css.CONTENT = [
   '}',
   '.blocklyActivated>.blocklyPath {',
   '  stroke-width: 2px;',
-  '  stroke: #AEB3E5;',
+  '  stroke: #FF3939;',
   '}',
   '.blocklyActivated>.blocklyPathLight {',
   '  display: none;',

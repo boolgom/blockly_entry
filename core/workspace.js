@@ -307,19 +307,24 @@ Blockly.Workspace.prototype.traceOn = function(armed) {
  * @param {?string} id ID of block to find.
  */
 Blockly.Workspace.prototype.activateBlock = function(id) {
+  this.traceOn(true);
   var block = null;
   if (id) {
-    block = this.getBlockByIdWithDeactivate(id);
+    block = this.getBlockById(id);
     if (!block) {
       return;
     }
   }
+  // Temporary turn off the listener for selection changes, so that we don't
+  // trip the monitor for detecting user activity.
+  this.traceOn(false);
   // Select the current block.
   if (block) {
-    block.svg_.addActive();
+    block.activate();
   } else if (Blockly.selected) {
-    block.svg_.removeActive();
+    Blockly.selected.unselect();
   }
+  this.traceOn(true);
 };
 
 /**
