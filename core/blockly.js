@@ -159,6 +159,12 @@ Blockly.OPPOSITE_TYPE[Blockly.PREVIOUS_STATEMENT] = Blockly.NEXT_STATEMENT;
 Blockly.SOUNDS_ = Object.create(null);
 
 /**
+ * Currently activated block.
+ * @type {Blockly.Block}
+ */
+Blockly.activated = null;
+
+/**
  * Currently selected block.
  * @type {Blockly.Block}
  */

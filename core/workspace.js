@@ -274,6 +274,18 @@ Blockly.Workspace.prototype.getBlockById = function(id) {
   return null;
 };
 
+Blockly.Workspace.prototype.getBlockByIdWithDeactivate = function(id) {
+  // If this O(n) function fails to scale well, maintain a hash table of IDs.
+  var blocks = this.getAllBlocks();
+  for (var x = 0, block; block = blocks[x]; x++) {
+    block.svg_.removeActive();
+    if (block.id == id) {
+      return block;
+    }
+  }
+  return null;
+};
+
 /**
  * Turn the visual trace functionality on or off.
  * @param {boolean} armed True if the trace should be on.
@@ -287,6 +299,26 @@ Blockly.Workspace.prototype.traceOn = function(armed) {
   if (armed) {
     this.traceWrapper_ = Blockly.bindEvent_(this.svgBlockCanvas_,
         'blocklySelectChange', this, function() {this.traceOn_ = false});
+  }
+};
+
+/**
+ * Activate a block in the workspace.
+ * @param {?string} id ID of block to find.
+ */
+Blockly.Workspace.prototype.activateBlock = function(id) {
+  var block = null;
+  if (id) {
+    block = this.getBlockByIdWithDeactivate(id);
+    if (!block) {
+      return;
+    }
+  }
+  // Select the current block.
+  if (block) {
+    block.svg_.addActive();
+  } else if (Blockly.selected) {
+    block.svg_.removeActive();
   }
 };
 

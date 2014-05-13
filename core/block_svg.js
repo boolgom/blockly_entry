@@ -453,6 +453,24 @@ Blockly.BlockSvg.prototype.removeSelect = function() {
 };
 
 /**
+ * Activate this block.  Highlight it visually.
+ */
+Blockly.BlockSvg.prototype.addActive = function() {
+  Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
+                    'blocklyActivated');
+  // Move the selected block to the top of the stack.
+  this.svgGroup_.parentNode.appendChild(this.svgGroup_);
+};
+
+/**
+ * Activate this block.  Remove its highlighting.
+ */
+Blockly.BlockSvg.prototype.removeActive = function() {
+  Blockly.removeClass_(/** @type {!Element} */ (this.svgGroup_),
+                       'blocklyActivated');
+};
+
+/**
  * Adds the dragging class to this block.
  * Also disables the highlights/shadows to improve performance.
  */
