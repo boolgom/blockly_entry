@@ -259,7 +259,10 @@ Blockly.Field.prototype.onMouseUp_ = function(e) {
   } else if (this.sourceBlock_.isEditable()) {
     // Non-abstract sub-classes must define a showEditor_ method.
     this.sourceBlock_.isDrag = true;
-    this.showEditor_();
+    if (typeof(Entry) == "object" && Entry.isState("stop"))
+      this.showEditor_();
+    else if (typeof(Entry) != "object")
+      this.showEditor_();
   }
 };
 
