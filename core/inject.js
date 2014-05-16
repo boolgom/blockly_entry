@@ -309,8 +309,9 @@ Blockly.createDom_ = function(container) {
 
   // The SVG is now fully assembled.  Add it to the container.
   container.appendChild(svg);
-  Blockly.bindEvent_(svg, 'mousedown', this,
-                     Blockly.hideChaff);
+  Blockly.bindEvent_(svg, 'mousedown', this, Blockly.hideChaff);
+  if (typeof(Entry) == "object")
+    Blockly.bindEvent_(svg, 'mousedown', this, Entry.stopInstantRun);
   Blockly.svg = svg;
   Blockly.svgResize();
 
