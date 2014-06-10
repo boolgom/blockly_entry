@@ -286,6 +286,24 @@ Blockly.Workspace.prototype.getBlockByIdWithDeactivate = function(id) {
   return null;
 };
 
+Blockly.Workspace.prototype.setAllBlockDisable = function() {
+  // If this O(n) function fails to scale well, maintain a hash table of IDs.
+  var blocks = this.getAllBlocks();
+  for (var x = 0, block; block = blocks[x]; x++) {
+    block.setDisabled(true);
+  }
+  return null;
+};
+
+Blockly.Workspace.prototype.setAllBlockAble = function() {
+  // If this O(n) function fails to scale well, maintain a hash table of IDs.
+  var blocks = this.getAllBlocks();
+  for (var x = 0, block; block = blocks[x]; x++) {
+    block.setDisabled(false);
+  }
+  return null;
+};
+
 /**
  * Turn the visual trace functionality on or off.
  * @param {boolean} armed True if the trace should be on.

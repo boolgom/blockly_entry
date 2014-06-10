@@ -422,7 +422,7 @@ Blockly.BlockSvg.prototype.updateDisabled = function() {
   if (this.block_.disabled || this.block_.getInheritedDisabled()) {
     Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
                       'blocklyDisabled');
-    this.svgPath_.setAttribute('fill', 'url(#blocklyDisabledPattern)');
+    this.svgPath_.setAttribute('fill', 'gray');
   } else {
     Blockly.removeClass_(/** @type {!Element} */ (this.svgGroup_),
                          'blocklyDisabled');
