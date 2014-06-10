@@ -58,6 +58,10 @@ Blockly.Xml.workspaceToDom = function(workspace) {
 Blockly.Xml.blockToDom_ = function(block) {
   var element = goog.dom.createDom('block');
   element.setAttribute('type', block.type);
+  if (block.outputConnection)
+    element.setAttribute('class', "output");
+  else
+    element.setAttribute('class', "inline");
   element.setAttribute('id', block.id);
   if (block.mutationToDom) {
     // Custom data for an advanced block.
