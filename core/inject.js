@@ -287,7 +287,7 @@ Blockly.createDom_ = function(container) {
               // Delete any block that's sitting on top of the flyout.
               if (block.isDeletable() && (Blockly.RTL ?
                   blockXY.x - 2 * metrics.viewLeft - metrics.viewWidth :
-                  -blockXY.x) > MARGIN * 2) {
+                  -blockXY.x) > + Blockly.mainWorkspace.scrollX) {
                 block.dispose(false, true);
               }
             }
