@@ -861,7 +861,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
           row.height -= 2;
           var r = input.renderHeight/2;
           var l = input.renderWidth;
-          var inputType = input.connection.check_[0];
+          var inputType = input.connection.check_ ? input.connection.check_[0] : "null";
           if (l < 2*r) {
             l = 2*r + 5;
             cursorX += 2*r - input.renderWidth;
