@@ -285,9 +285,15 @@ Blockly.createDom_ = function(container) {
                 block.moveBy(overflow, 0);
               }
               // Delete any block that's sitting on top of the flyout.
-              if (block.isDeletable() && (Blockly.RTL ?
+              if (typeof(Entry) == "object" && block.isDeletable() && (Blockly.RTL ?
                   blockXY.x - 2 * metrics.viewLeft - metrics.viewWidth :
                   -blockXY.x) > + Blockly.mainWorkspace.scrollX) {
+                block.dispose(false, true);
+              }
+
+              if (typeof(Entry) != "object" && block.isDeletable() && (Blockly.RTL ?
+                  blockXY.x - 2 * metrics.viewLeft - metrics.viewWidth :
+                  -blockXY.x) > + Blockly.mainWorkspace.scrollX - 150) {
                 block.dispose(false, true);
               }
             }
