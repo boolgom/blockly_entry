@@ -74,8 +74,13 @@ Blockly.parseOptions_ = function(options) {
       if (typeof tree == 'string') {
         tree = Blockly.Xml.textToDom(tree);
       }
-      var hasCategories = !!tree.getElementsByTagName('category').length;
-      //var hasCategories = true;
+      //var hasCategories = !!tree.getElementsByTagName('category').length;
+      var hasCategories = false;
+      try {
+          hasCategories = !!tree.getElementsByTagName('category').length;
+      } catch (err) {
+          hasCategories = false;
+      }
     } else {
       tree = null;
       var hasCategories = false;
