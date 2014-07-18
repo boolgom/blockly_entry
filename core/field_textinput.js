@@ -46,6 +46,7 @@ Blockly.FieldTextInput = function(text, opt_changeHandler) {
   Blockly.FieldTextInput.superClass_.constructor.call(this, text);
 
   this.changeHandler_ = opt_changeHandler;
+  this.isTextInput = true;
 };
 goog.inherits(Blockly.FieldTextInput, Blockly.Field);
 

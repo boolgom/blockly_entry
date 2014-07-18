@@ -393,10 +393,10 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     }
     if (typeof(Entry) == "object" && block.type == "make_variable") {
       Blockly.bindEvent_(root, 'mousedown', null,
-        function () {Entry.createVariable();});
+        function () {Entry.container.createVariable();});
     } else if (typeof(Entry) == "object" && block.type == "add_message") {
       Blockly.bindEvent_(root, 'mousedown', null,
-        function () {Entry.createMessage();});
+        function () {Entry.container.createMessage();});
     } else if (typeof(Entry) == "object" && block.type == "remove_variable") {
       Blockly.bindEvent_(root, 'mousedown', null,
         function () {Entry.removeVariable();});
@@ -582,9 +582,6 @@ Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
     }
     // Start a dragging operation on the new block.
     block.onMouseDown_(e);
-    if (typeof(Entry)=="object") {
-      Entry.scope.selectCategory(null);
-    }
   };
 };
 

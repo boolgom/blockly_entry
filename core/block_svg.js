@@ -538,6 +538,8 @@ Blockly.BlockSvg.prototype.renderFields_ = function(fieldList,
   }
   for (var t = 0, field; field = fieldList[t]; t++) {
     // Get the dimensions of the field.
+    if (field.isTextInput && fieldList.length ==1)
+      cursorX -= 4;
     var fieldSize = field.getSize();
     var fieldWidth = fieldSize.width;
 
@@ -555,6 +557,8 @@ Blockly.BlockSvg.prototype.renderFields_ = function(fieldList,
         cursorX += fieldWidth + Blockly.BlockSvg.SEP_SPACE_X;
       }
     }
+    if (field.isTextInput && fieldList.length ==1)
+      cursorX += 4;
   }
   return Blockly.RTL ? -cursorX : cursorX;
 };
@@ -851,12 +855,13 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
                     - Blockly.BlockSvg.FIELD_HEIGHT - 4) / 2;
         }
         // TODO: Align inline field rows (left/right/centre).
+        cursorX -= 0;
         cursorX = this.renderFields_(input.fieldRow, fieldX, fieldY);
-        cursorX += 4;
         if (input.type != Blockly.DUMMY_INPUT) {
           cursorX += input.renderWidth + Blockly.BlockSvg.SEP_SPACE_X;
         }
         if (input.type == Blockly.INPUT_VALUE) {
+          cursorX += 2;
           input.renderHeight -=4;
           row.height -= 2;
           var r = input.renderHeight/2;
@@ -900,7 +905,8 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
           if (input.connection.targetConnection) {
             input.connection.tighten_();
           }
-          cursorX -= 4;
+          if(this.block_.type.substring(0,7) != 'boolean')
+            cursorX -= 9;
         }
       }
 
@@ -917,6 +923,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
           steps.push('l', cursorX + ',0');
           steps.push('a', r + ',' + r + ' 0 1,1 0,' + 2*r);
         }
+
       } else {
         if (y==0)
           this.blockInlineWidth_ = cursorX;

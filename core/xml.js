@@ -268,6 +268,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
 //      block.id = parseInt(id, 10);
 //    }
   }
+  block.previousId = xmlBlock.getAttribute('id');
   if (!block.svg_) {
     block.initSvg();
   }

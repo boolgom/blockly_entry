@@ -323,7 +323,7 @@ Blockly.createDom_ = function(container) {
   container.appendChild(svg);
   Blockly.bindEvent_(svg, 'mousedown', this, Blockly.hideChaff);
   if (typeof(Entry) == "object")
-    Blockly.bindEvent_(svg, 'mousedown', this, Entry.stopInstantRun);
+    //Blockly.bindEvent_(svg, 'mousedown', this, Entry.stopInstantRun);
   Blockly.svg = svg;
   Blockly.svgResize();
 

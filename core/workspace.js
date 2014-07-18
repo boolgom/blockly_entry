@@ -274,6 +274,23 @@ Blockly.Workspace.prototype.getBlockById = function(id) {
   return null;
 };
 
+/**
+ * Finds the block with the specified previous ID in this workspace.
+ * @param {string} previous id ID of block to find.
+ * @return {Blockly.Block} The matching block, or null if not found.
+ */
+Blockly.Workspace.prototype.getBlockByPreviousId = function(previousId) {
+  // If this O(n) function fails to scale well, maintain a hash table of IDs.
+  var blocks = this.getAllBlocks();
+  for (var x = 0, block; block = blocks[x]; x++) {
+    if (block.previousId == previousId) {
+      return block;
+    }
+  }
+  return null;
+};
+
+
 Blockly.Workspace.prototype.getBlockByIdWithDeactivate = function(id) {
   // If this O(n) function fails to scale well, maintain a hash table of IDs.
   var blocks = this.getAllBlocks();
@@ -329,6 +346,31 @@ Blockly.Workspace.prototype.activateBlock = function(id) {
   var block = null;
   if (id) {
     block = this.getBlockById(id);
+    if (!block) {
+      return;
+    }
+  }
+  // Temporary turn off the listener for selection changes, so that we don't
+  // trip the monitor for detecting user activity.
+  this.traceOn(false);
+  // Select the current block.
+  if (block) {
+    block.activate();
+  } else if (Blockly.selected) {
+    Blockly.selected.unselect();
+  }
+  this.traceOn(true);
+};
+
+/**
+ * Activate a block in the workspace.
+ * @param {?string} id ID of block to find.
+ */
+Blockly.Workspace.prototype.activatePreviousBlock = function(id) {
+  this.traceOn(true);
+  var block = null;
+  if (id) {
+    block = this.getBlockByPreviousId(id);
     if (!block) {
       return;
     }

@@ -294,7 +294,7 @@ Blockly.FieldDropdownDynamic.prototype.trimOptions_ = function() {
  * @private
  */
 Blockly.FieldDropdownDynamic.prototype.getOptions_ = function() {
-    this.menuGenerator_ = Entry.getMenu(this.menuName_);
+    this.menuGenerator_ = Entry.container.getDropdownList(this.menuName_);
   if (goog.isFunction(this.menuGenerator_)) {
     return this.menuGenerator_.call(this);
   }

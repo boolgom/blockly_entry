@@ -573,7 +573,8 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
  */
 Blockly.Block.prototype.onMouseUp_ = function(e) {
   if (!this.isDrag && typeof(Entry) == "object") {
-    Entry.fireInstantEvent(this.id);
+    //fire instant event
+    //Entry.fireInstantEvent(this.id);
   };
   Blockly.terminateDrag_();
   if (Blockly.selected && Blockly.highlightedConnection_) {
