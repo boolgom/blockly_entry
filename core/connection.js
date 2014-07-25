@@ -339,27 +339,32 @@ Blockly.Connection.prototype.moveBy = function(dx, dy) {
  */
 Blockly.Connection.prototype.highlight = function() {
   var steps;
+  var xy = this.sourceBlock_.getRelativeToSurfaceXY();
+  var x = this.x_ - xy.x;
+  var y = this.y_ - xy.y;
   if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
     var inputType = this.check_ ? this.check_[0] : "null";
     if (inputType.toUpperCase() == "BOOLEAN")
         steps = 'M -4,0 h -5 l -10.5,10.5 10.5,10.5 h 5 l 10.5,-10.5 -10.5,-10.5 z';
     else
         steps = 'M -4,0 h -5 a 10.5,10.5 0 1,0 0,21 h 5 a 10.5,10.5 0 1,0 0,-21 z';
+    Blockly.Connection.highlightedPath_ = Blockly.createSvgElement('path',
+        {'class': 'blocklyHighlightedConnectionPathInline',
+         'd': steps,
+         transform: 'translate(' + x + ', ' + y + ')'},
+        this.sourceBlock_.getSvgRoot());
   } else {
     if (Blockly.RTL) {
       steps = 'm 20,0 h -5 l -6,4 -3,0 -6,-4 h -5';
     } else {
       steps = 'm -20,0 l 7,0 0,6 12,0 0,-6 7,0';
     }
+    Blockly.Connection.highlightedPath_ = Blockly.createSvgElement('path',
+        {'class': 'blocklyHighlightedConnectionPath',
+         'd': steps,
+         transform: 'translate(' + x + ', ' + y + ')'},
+        this.sourceBlock_.getSvgRoot());
   }
-  var xy = this.sourceBlock_.getRelativeToSurfaceXY();
-  var x = this.x_ - xy.x;
-  var y = this.y_ - xy.y;
-  Blockly.Connection.highlightedPath_ = Blockly.createSvgElement('path',
-      {'class': 'blocklyHighlightedConnectionPath',
-       'd': steps,
-       transform: 'translate(' + x + ', ' + y + ')'},
-      this.sourceBlock_.getSvgRoot());
 };
 
 /**
