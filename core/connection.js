@@ -340,17 +340,15 @@ Blockly.Connection.prototype.moveBy = function(dx, dy) {
 Blockly.Connection.prototype.highlight = function() {
   var steps;
   if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
-    var tabWidth = Blockly.RTL ? -Blockly.BlockSvg.TAB_WIDTH :
-                                 Blockly.BlockSvg.TAB_WIDTH;
-//  steps = 'm 0,0 v 5 c 0,10 ' + -tabWidth + ',-8 ' + -tabWidth + ',7.5 s ' +
-//          tabWidth + ',-2.5 ' + tabWidth + ',7.5 v 5';
-    steps = 'm 0,0 l 3,0';
+    var inputType = this.check_ ? this.check_[0] : "null";
+    if (inputType.toUpperCase() == "BOOLEAN")
+        steps = 'M -4,0 h -5 l -10.5,10.5 10.5,10.5 h 5 l 10.5,-10.5 -10.5,-10.5 z';
+    else
+        steps = 'M -4,0 h -5 a 10.5,10.5 0 1,0 0,21 h 5 a 10.5,10.5 0 1,0 0,-21 z';
   } else {
     if (Blockly.RTL) {
-//    steps = 'm 20,0 h -5 l -6,4 -3,0 -6,-4 h -5';
       steps = 'm 20,0 h -5 l -6,4 -3,0 -6,-4 h -5';
     } else {
-//    steps = 'm -20,0 h 5 l 6,4 3,0 6,-4 h 5';
       steps = 'm -20,0 l 7,0 0,6 12,0 0,-6 7,0';
     }
   }
