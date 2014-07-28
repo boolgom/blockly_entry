@@ -94,16 +94,10 @@ Blockly.parseOptions_ = function(options) {
       hasCollapse = hasCategories;
     }
   }
-  if (tree && !hasCategories) {
-    // Scrollbars are not compatible with a non-flyout toolbox.
-    var hasScrollbars = false;
-  } else {
-    var hasScrollbars = options['scrollbars'];
-    if (hasScrollbars === undefined) {
-      hasScrollbars = true;
-    }
+  var hasScrollbars = options['scrollbars'];
+  if (hasScrollbars === undefined) {
+    hasScrollbars = true;
   }
-  hasScrollbars = true;
   return {
     RTL: !!options['rtl'],
     collapse: hasCollapse,
