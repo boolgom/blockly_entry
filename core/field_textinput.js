@@ -133,6 +133,8 @@ Blockly.FieldTextInput.prototype.showEditor_ = function() {
   // Bind to keyPress -- repeatedly resize when holding down a key.
   htmlInput.onKeyPressWrapper_ =
       Blockly.bindEvent_(htmlInput, 'keypress', this, this.onHtmlInputChange_);
+  htmlInput.onBlurWrapper_ =
+      Blockly.bindEvent_(htmlInput, 'blur', this, Blockly.WidgetDiv.hide);
   var workspaceSvg = this.sourceBlock_.workspace.getCanvas();
   htmlInput.onWorkspaceChangeWrapper_ =
       Blockly.bindEvent_(workspaceSvg, 'blocklyWorkspaceChange', this,
