@@ -6,7 +6,7 @@
         ]
     },
     "VARIABLES_DEFAULT_NAME": "항목",
-    "DUPLICATE_BLOCK": "중복됨",
+    "DUPLICATE_BLOCK": "블록 복제",
     "ADD_COMMENT": "덧글 추가",
     "REMOVE_COMMENT": "내용 제거",
     "EXTERNAL_INPUTS": "외부 입력",
