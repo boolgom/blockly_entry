@@ -397,6 +397,9 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     } else if (typeof(Entry) == "object" && block.type == "add_message") {
       Blockly.bindEvent_(root, 'mousedown', null,
         function () {Entry.container.createMessage();});
+    } else if (typeof(Entry) == "object" && block.type == "delete_mesage") {
+      Blockly.bindEvent_(root, 'mousedown', null,
+        function () {Entry.container.deleteMessage();});
     } else if (typeof(Entry) == "object" && block.type == "remove_variable") {
       Blockly.bindEvent_(root, 'mousedown', null,
         function () {Entry.container.removeVariable();});
