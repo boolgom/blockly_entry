@@ -595,7 +595,13 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
       // Don't throw an object in the trash can if it just got connected.
       this.workspace.trashcan.close();
     }
+    if (typeof(Entry) == "object" && this.getParent() !== this.isDisconnected) {
+      Entry.dispatchEvent("entryBlocklyChanged");
+    }
   } else if (this.workspace.trashcan && this.workspace.trashcan.isOpen) {
+    if (typeof(Entry) == "object") {
+      Entry.dispatchEvent("entryBlocklyChanged");
+    }
     var trashcan = this.workspace.trashcan;
     goog.Timer.callOnce(trashcan.close, 100, trashcan);
     Blockly.selected.dispose(false, true);
@@ -603,6 +609,11 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
     // resize to contain the newly positioned block.  Force a second resize now
     // that the block has been deleted.
     Blockly.fireUiEvent(window, 'resize');
+  } else if (this.isDisconnected) {
+    if (typeof(Entry) == "object") {
+      Entry.dispatchEvent("entryBlocklyChanged");
+      this.isDisconnected = null;
+    }
   }
   if (Blockly.highlightedConnection_) {
     Blockly.highlightedConnection_.unhighlight();
@@ -873,6 +884,7 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       // Switch to unrestricted dragging.
       Blockly.Block.dragMode_ = 2;
       // Push this block to the very top of the stack.
+      this.isDisconnected = this.getParent();
       this.setParent(null);
       this.setDragging_(true);
     }

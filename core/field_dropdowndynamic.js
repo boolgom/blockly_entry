@@ -161,6 +161,9 @@ Blockly.FieldDropdownDynamic.prototype.showEditor_ = function() {
         }
       }
       if (value !== null) {
+        if (typeof(Entry) == "object" && this.getValue() != value) {
+          Entry.dispatchEvent("entryBlocklyChanged");
+        }
         this.setValue(value);
       }
       // This mouse click has been handled, don't bubble up to document.

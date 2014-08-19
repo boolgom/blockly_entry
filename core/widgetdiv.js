@@ -63,6 +63,9 @@ Blockly.WidgetDiv.show = function(newField, dispose) {
   Blockly.WidgetDiv.field_ = newField;
   Blockly.WidgetDiv.dispose_ = dispose;
   Blockly.WidgetDiv.DIV.style.display = 'block';
+  if (typeof(Entry) == "object") {
+    Entry.dispatchEvent("entryBlocklyChanged");
+  }
 };
 
 /**
