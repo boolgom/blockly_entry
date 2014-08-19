@@ -530,6 +530,9 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
     return;
   } else {
     // Left-click (or middle click)
+    if (typeof(Entry) == "object") {
+      Entry.dispatchEvent("entryBlocklyChanged");
+    }
     this.isDrag = false;
     Blockly.removeAllRanges();
     Blockly.setCursorHand_(true);
@@ -595,13 +598,10 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
       // Don't throw an object in the trash can if it just got connected.
       this.workspace.trashcan.close();
     }
-    if (typeof(Entry) == "object" && this.getParent() !== this.isDisconnected) {
-      Entry.dispatchEvent("entryBlocklyChanged");
+    if (typeof(Entry) == "object" && this.getParent() === this.isDisconnected) {
+      Entry.dispatchEvent("cancelLastCommand");
     }
   } else if (this.workspace.trashcan && this.workspace.trashcan.isOpen) {
-    if (typeof(Entry) == "object") {
-      Entry.dispatchEvent("entryBlocklyChanged");
-    }
     var trashcan = this.workspace.trashcan;
     goog.Timer.callOnce(trashcan.close, 100, trashcan);
     Blockly.selected.dispose(false, true);
@@ -610,9 +610,9 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
     // that the block has been deleted.
     Blockly.fireUiEvent(window, 'resize');
   } else if (this.isDisconnected) {
+  } else {
     if (typeof(Entry) == "object") {
-      Entry.dispatchEvent("entryBlocklyChanged");
-      this.isDisconnected = null;
+      Entry.dispatchEvent("cancelLastCommand");
     }
   }
   if (Blockly.highlightedConnection_) {

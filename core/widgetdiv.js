@@ -59,13 +59,13 @@ Blockly.WidgetDiv.dispose_ = null;
  *   is closed.
  */
 Blockly.WidgetDiv.show = function(newField, dispose) {
+  if (typeof(Entry) == "object")
+    Entry.dispatchEvent("entryBlocklyChanged");
   Blockly.WidgetDiv.hide();
   Blockly.WidgetDiv.field_ = newField;
   Blockly.WidgetDiv.dispose_ = dispose;
+  Blockly.WidgetDiv.initialValue = Blockly.WidgetDiv.field_.text_;
   Blockly.WidgetDiv.DIV.style.display = 'block';
-  if (typeof(Entry) == "object") {
-    Entry.dispatchEvent("entryBlocklyChanged");
-  }
 };
 
 /**
@@ -73,6 +73,10 @@ Blockly.WidgetDiv.show = function(newField, dispose) {
  */
 Blockly.WidgetDiv.hide = function() {
   if (Blockly.WidgetDiv.field_) {
+    if (typeof(Entry) == "object" &&
+        Blockly.WidgetDiv.initialValue != Blockly.WidgetDiv.field_.text_) {
+      Entry.dispatchEvent("cancelLastCommand");
+    }
     Blockly.WidgetDiv.DIV.style.display = 'none';
     Blockly.WidgetDiv.dispose_ && Blockly.WidgetDiv.dispose_();
     Blockly.WidgetDiv.field_ = null;
