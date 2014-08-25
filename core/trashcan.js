@@ -234,10 +234,10 @@ Blockly.Trashcan.prototype.onMouseMove = function(e) {
   }
   var mouseXY = Blockly.mouseToSvg(e);
   var trashXY = Blockly.getSvgXY_(this.svgGroup_);
-  var over = (mouseXY.x > trashXY.x) &&
-             (mouseXY.x < trashXY.x + this.WIDTH_) &&
-             (mouseXY.y > trashXY.y) &&
-             (mouseXY.y < trashXY.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_);
+  var over = (mouseXY.x + 25 > trashXY.x) &&
+             (mouseXY.x < trashXY.x + this.WIDTH_ + 25 ) &&
+             (mouseXY.y + 25  > trashXY.y) &&
+             (mouseXY.y < trashXY.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_ + 25 );
   // For bonus points we might want to match the trapezoidal outline.
   if (this.isOpen != over) {
     this.setOpen_(over);
