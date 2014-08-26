@@ -204,6 +204,12 @@ Blockly.DRAG_RADIUS = 5;
 Blockly.SNAP_RADIUS = 15;
 
 /**
+ * Maximum misalignment between connections for them to snap together for Entry workspace.
+ * @const
+ */
+Blockly.SNAP_RADIUS_ENTRY = 25;
+
+/**
  * Delay in ms between trigger and bumping unconnected block out of alignment.
  * @const
  */
