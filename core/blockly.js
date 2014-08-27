@@ -338,6 +338,35 @@ Blockly.onMouseMove_ = function(e) {
 };
 
 /**
+ * Handle a mouse-wheel on SVG drawing surface.
+ * @param {!Event} e Mouse move event.
+ * @private
+ */
+Blockly.onMouseWheel_ = function (e) {
+    e.preventDefault();
+    Blockly.removeAllRanges();
+
+    var dx = e.wheelDeltaX;
+    var dy = e.wheelDeltaY;
+    var metrics = Blockly.mainWorkspace.getMetrics();
+    Blockly.mainWorkspace.startScrollX = Blockly.mainWorkspace.scrollX;
+    Blockly.mainWorkspace.startScrollY = Blockly.mainWorkspace.scrollY;
+    var x = Blockly.mainWorkspace.startScrollX + dx;
+    var y = Blockly.mainWorkspace.startScrollY + dy;
+    x = Math.min(x, -metrics.contentLeft);
+    y = Math.min(y, -metrics.contentTop);
+    x = Math.max(x, metrics.viewWidth - metrics.contentLeft -
+                 metrics.contentWidth);
+    y = Math.max(y, metrics.viewHeight - metrics.contentTop -
+                 metrics.contentHeight);
+
+    // Move the scrollbars and the page will scroll automatically.
+    Blockly.mainWorkspace.scrollbar.set(-x - metrics.contentLeft,
+                                        -y - metrics.contentTop);
+}
+
+
+/**
  * Handle a key-down on SVG drawing surface.
  * @param {!Event} e Key down event.
  * @private
