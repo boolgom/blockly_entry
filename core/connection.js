@@ -118,9 +118,15 @@ Blockly.Connection.prototype.connect = function(otherConnection) {
       }
       if (orphanBlock) {
         // Unable to reattach orphan.  Bump it off to the side.
-        window.setTimeout(function() {
-              orphanBlock.outputConnection.bumpAwayFrom_(otherConnection);
-            }, Blockly.BUMP_DELAY);
+        var blockType = orphanBlock.type.toUpperCase();
+        if (blockType == 'NUMBER' || blockType == 'TRUE' ||
+            blockType == 'FALSE') {
+            orphanBlock.dispose(true, false);
+        } else {
+          window.setTimeout(function() {
+                orphanBlock.outputConnection.bumpAwayFrom_(otherConnection);
+              }, Blockly.BUMP_DELAY);
+        }
       }
     }
   } else {
@@ -233,6 +239,26 @@ Blockly.Connection.prototype.disconnect = function() {
   }
   otherConnection.targetConnection = null;
   this.targetConnection = null;
+
+  if (!this.sourceBlock_.isInFlyout && this.sourceBlock_.isEditing &&
+      this.sourceBlock_.outputConnection instanceof Blockly.Connection) {
+    if (otherConnection.check_ &&
+        otherConnection.check_[0].toUpperCase() == 'NUMBER') {
+      var xml = Blockly.Xml.textToDom('<xml><block type="number">' +
+                                      '<field name="NUM">10</field>' +
+                                      '</block></xml>');
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      otherConnection.connect(newblock.outputConnection);
+    } else if (otherConnection.check_ &&
+        otherConnection.check_[0].toUpperCase() == 'BOOLEAN') {
+      var xml = Blockly.Xml.textToDom('<xml><block type="True">' +
+                                      '</block></xml>');
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      otherConnection.connect(newblock.outputConnection);
+    }
+    this.sourceBlock_.isDrag = false;
+    otherConnection.sourceBlock_.isDrag = false;
+  }
 
   // Rerender the parent so that it may reflow.
   var parentBlock, childBlock;

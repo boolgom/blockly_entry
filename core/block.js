@@ -864,6 +864,7 @@ Blockly.Block.prototype.setDragging_ = function(adding) {
  */
 Blockly.Block.prototype.onMouseMove_ = function(e) {
   this.isDrag = true;
+  this.isEditing = true;
   if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
       e.button == 0) {
     /* HACK:
@@ -938,6 +939,7 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       this.workspace.trashcan.onMouseMove(e);
     }
   }
+  delete this.isEditing;
   // This event has been handled.  No need to bubble up to the document.
   e.stopPropagation();
 };
