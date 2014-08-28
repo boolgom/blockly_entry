@@ -6,13 +6,13 @@
         ]
     },
     "VARIABLES_DEFAULT_NAME": "항목",
-    "DUPLICATE_BLOCK": "블록 복제",
+    "DUPLICATE_BLOCK": "블록 복사 & 붙여넣기",
     "ADD_COMMENT": "덧글 추가",
     "REMOVE_COMMENT": "내용 제거",
     "EXTERNAL_INPUTS": "외부 입력",
     "INLINE_INPUTS": "내부 입력",
     "DELETE_BLOCK": "블록 삭제",
-    "DELETE_X_BLOCKS": "블록 %1 삭제",
+    "DELETE_X_BLOCKS": "블록 삭제",
     "COLLAPSE_BLOCK": "블록 축소",
     "COLLAPSE_ALL": "블록 축소",
     "EXPAND_BLOCK": "블록 확장",
@@ -350,5 +350,7 @@
     "PROCEDURES_HIGHLIGHT_DEF": "함수 정의 찾기",
     "PROCEDURES_CREATE_DO": "'%1' 생성",
     "PROCEDURES_IFRETURN_TOOLTIP": "값이 참이라면, 두번째 값을 반환합니다.",
-    "PROCEDURES_IFRETURN_WARNING": "경고: 이 블럭은, 함수 정의 블럭 안에서만 사용할 수 있습니다."
+    "PROCEDURES_IFRETURN_WARNING": "경고: 이 블럭은, 함수 정의 블럭 안에서만 사용할 수 있습니다.",
+    "CONTEXT_BLOCK_COPY": "블록 복사",
+    "CONTEXT_BLOCK_PASTE": "붙여넣기"
 }

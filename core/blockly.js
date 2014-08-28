@@ -284,7 +284,7 @@ Blockly.onMouseDown_ = function(e) {
   if (Blockly.isRightButton(e)) {
     // Right-click.
     if (Blockly.ContextMenu) {
-      //Blockly.showContextMenu_(Blockly.mouseToSvg(e));
+      Blockly.showContextMenu_(Blockly.mouseToSvg(e));
     }
   } else if ((Blockly.readOnly || isTargetSvg) &&
              Blockly.mainWorkspace.scrollbar) {
@@ -483,11 +483,28 @@ Blockly.showContextMenu_ = function(xy) {
     options.push(expandOption);
   }
 
+    var pasteOption = {
+        text: Blockly.Msg.CONTEXT_BLOCK_PASTE,
+        enabled: true,
+        callback: function() {
+            Blockly.mainWorkspace.paste(Blockly.clipboard_);
+            if (typeof(Entry) == "object") {
+              Entry.dispatchEvent("entryBlocklyChanged");
+            }
+        }
+    }
+    if (!Blockly.clipboard_) {
+        pasteOption.enabled = false;
+    }
+    options.push(pasteOption);
+
   // Option to get help.
+/*
   var helpOption = {enabled: false};
   helpOption.text = Blockly.Msg.HELP;
   helpOption.callback = function() {};
   options.push(helpOption);
+*/
 
   Blockly.ContextMenu.show(xy, options);
 };

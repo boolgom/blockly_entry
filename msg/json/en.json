@@ -1,7 +1,7 @@
 {
     "@metadata": {
         "author": "Ellen Spertus <ellen.spertus@gmail.com>",
-        "lastupdated": "2014-03-06 20:01:09.070024",
+        "lastupdated": "2014-08-28 14:07:38.475074",
         "locale": "en",
         "messagedocumentation" : "qqq"
     },
@@ -352,5 +352,7 @@
     "PROCEDURES_HIGHLIGHT_DEF": "Highlight function definition",
     "PROCEDURES_CREATE_DO": "Create '%1'",
     "PROCEDURES_IFRETURN_TOOLTIP": "If a value is true, then return a second value.",
-    "PROCEDURES_IFRETURN_WARNING": "Warning: This block may be used only within a function definition."
+    "PROCEDURES_IFRETURN_WARNING": "Warning: This block may be used only within a function definition.",
+    "CONTEXT_BLOCK_COPY": "Copy",
+    "CONTEXT_BLOCK_PASTE": "Paste"
 }

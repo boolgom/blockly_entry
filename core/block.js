@@ -675,12 +675,27 @@ Blockly.Block.prototype.showContextMenu_ = function(xy) {
       enabled: true,
       callback: function() {
         block.duplicate_();
+        if (typeof(Entry) == "object") {
+          Entry.dispatchEvent("entryBlocklyChanged");
+        }
       }
     };
     if (this.getDescendants().length > this.workspace.remainingCapacity()) {
       duplicateOption.enabled = false;
     }
     options.push(duplicateOption);
+
+    var copyOption = {
+        text: Blockly.Msg.CONTEXT_BLOCK_COPY,
+        enabled: true,
+        callback: function() {
+            Blockly.copy_(Blockly.selected);
+        }
+    };
+    if (this.getDescendants().length > this.workspace.remainingCapacity()) {
+      copyOption.enabled = false;
+    }
+    options.push(copyOption);
 
     // if (this.isEditable() && !this.collapsed_) {
     //   // Option to add/remove a comment.
