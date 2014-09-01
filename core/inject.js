@@ -242,6 +242,7 @@ Blockly.createDom_ = function(container) {
       var flyout = Blockly.mainWorkspace.flyout_;
       var flyoutSvg = flyout.createDom();
       flyout.init(Blockly.mainWorkspace, true);
+      Blockly.bindEvent_(flyoutSvg, 'mousewheel', flyout, Blockly.onMouseWheelFlyout_);
       flyout.autoClose = false;
       // Insert the flyout behind the workspace so that blocks appear on top.
       goog.dom.insertSiblingAfter(flyoutSvg, Blockly.mainWorkspace.svgGroup_);

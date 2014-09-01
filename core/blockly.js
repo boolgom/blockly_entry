@@ -312,7 +312,7 @@ Blockly.onMouseUp_ = function(e) {
 };
 
 /**
- * Handle a mouse-move on SVG drawing surface.
+ * Handle a mouse-move on SVG surface.
  * @param {!Event} e Mouse move event.
  * @private
  */
@@ -365,6 +365,30 @@ Blockly.onMouseWheel_ = function (e) {
                                         -y - metrics.contentTop);
 }
 
+/**
+ * Handle a mouse-wheel on flyout SVG drawing surface.
+ * @param {!Event} e Mouse move event.
+ * @private
+ */
+Blockly.onMouseWheelFlyout_ = function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    Blockly.removeAllRanges();
+
+    var scroll = this.scrollbar_;
+    var dy = e.wheelDeltaY;
+    var metrics = this.getMetrics_();
+    scroll.startScrollY = parseFloat(this.scrollbar_.svgKnob_.getAttribute('y'));
+
+    var y = parseFloat(-scroll.startScrollY) + dy;
+    y = Math.min(y, -metrics.contentTop);
+    y = Math.max(y, metrics.viewHeight - metrics.contentTop -
+                 metrics.contentHeight);
+
+    scroll.svgKnob_.setAttribute(this.horizontal_ ? 'x' : 'y',
+                                scroll.constrainKnob_(-y- metrics.contentTop));
+    scroll.onScroll_();
+}
 
 /**
  * Handle a key-down on SVG drawing surface.
