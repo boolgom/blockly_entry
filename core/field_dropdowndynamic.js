@@ -52,7 +52,6 @@ Blockly.FieldDropdownDynamic = function(menuName, opt_changeHandler) {
   this.trimOptions_();
   var firstTuple = this.getOptions_()[0];
   this.value_ = firstTuple[1];
-
   // Add dropdown arrow: "option ▾" (LTR) or "▾ אופציה" (RTL)
   this.arrow_ = Blockly.createSvgElement('tspan', {}, null);
   this.arrow_.appendChild(document.createTextNode(
@@ -329,7 +328,7 @@ Blockly.FieldDropdownDynamic.prototype.setValue = function(newValue) {
   }
   // Value not found.  Add it, maybe it will become valid once set
   // (like variable names).
-  this.setText(newValue);
+  this.setText('대상없음');
 };
 
 /**
