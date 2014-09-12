@@ -50,8 +50,8 @@ Blockly.Field = function(text) {
        'y': 0,
        'height': 16}, this.fieldGroup_);
   this.textElement_ = Blockly.createSvgElement('text',
-      {'class': 'blocklyText', 'y': 8}, this.fieldGroup_);
-  this.size_ = {height: 16, width: 0};
+      {'class': 'blocklyText', 'y': 11}, this.fieldGroup_);
+  this.size_ = {height: 14, width: 0};
   this.setText(text);
   this.visible_ = true;
 };
