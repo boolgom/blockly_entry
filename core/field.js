@@ -47,11 +47,11 @@ Blockly.Field = function(text) {
       {'rx': 0,
        'ry': 0,
        'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
-       'y': -13,
+       'y': 0,
        'height': 16}, this.fieldGroup_);
   this.textElement_ = Blockly.createSvgElement('text',
-      {'class': 'blocklyText'}, this.fieldGroup_);
-  this.size_ = {height: 25, width: 0};
+      {'class': 'blocklyText', 'y': 8}, this.fieldGroup_);
+  this.size_ = {height: 16, width: 0};
   this.setText(text);
   this.visible_ = true;
 };

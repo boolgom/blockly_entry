@@ -42,11 +42,11 @@ Blockly.FieldLabel = function(text, color) {
   // Build the DOM.
   if (goog.isString(color))
     this.textElement_ = Blockly.createSvgElement('text',
-        {'class': 'blocklyText', 'style': 'fill:' + color}, null);
+        {'class': 'blocklyText', 'style': 'fill:' + color, 'y': 12}, null);
   else
     this.textElement_ = Blockly.createSvgElement('text',
-        {'class': 'blocklyText'}, null);
-  this.size_ = {height: 25, width: 0};
+        {'class': 'blocklyText', 'y': 12}, null);
+  this.size_ = {height: 14, width: 0};
   this.setText(text);
 };
 goog.inherits(Blockly.FieldLabel, Blockly.Field);
