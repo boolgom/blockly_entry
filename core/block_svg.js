@@ -246,8 +246,8 @@ Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT =
  * @const
  */
 Blockly.BlockSvg.INNER_TOP_LEFT_CORNER =
-    Blockly.BlockSvg.NOTCH_PATH_RIGHT + ' h -' +
-    (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) +
+    Blockly.BlockSvg.NOTCH_PATH_RIGHT + ' h' +
+    (Blockly.BlockSvg.CORNER_RADIUS) +
     ' a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' +
     Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 -' +
     Blockly.BlockSvg.CORNER_RADIUS + ',' +
@@ -899,7 +899,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
         if (this.blockInlineWidth_)
           cursorX = this.blockInlineWidth_;
         var r = row.height/2;
-        steps.push('H', cursorX - r);
+        steps.push('H', cursorX - r - 4);
         steps.push('a', r + ',' + r + ' 0 0,1 0,' + 2*r);
       }
     } else if (row.type == Blockly.INPUT_VALUE) {
@@ -968,23 +968,24 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
       this.renderFields_(input.fieldRow, fieldX, fieldY, row.height);
       cursorX = inputRows.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH;
 
-      steps.push('H', cursorX);
+        var r = row.height/2;
+      steps.push('H', cursorX + 6);
       steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
 //    steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
-      steps.push('v', row.height- 7);
+      steps.push('v', row.height- 9);
       steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
 //    steps.push('H', inputRows.rightEdge);
-      steps.push('H', 21);
+      steps.push('H', 22);
       steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
       if (this.blockInlineWidth_)
-        steps.push('H', this.blockInlineWidth_);
+        steps.push('H', this.blockInlineWidth_ - row.height /3);
       else
         steps.push('H', blockWidth);
       // Create statement connection.
-      connectionX = connectionsXY.x + (Blockly.RTL ? -cursorX : cursorX);
-      connectionY = connectionsXY.y + cursorY + 1;
+      connectionX = connectionsXY.x + (Blockly.RTL ? -cursorX : cursorX) + 6;
+      connectionY = connectionsXY.y + cursorY + 3;
       if (y != 0)
-        connectionY += 2;
+        connectionY -= 0;
       cursorY -= 3;
       input.connection.moveTo(connectionX, connectionY);
       if (input.connection.targetConnection) {
@@ -994,7 +995,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps,
           inputRows[y + 1].type == Blockly.NEXT_STATEMENT) {
         // If the final input is a statement stack, add a small row underneath.
         // Consecutive statement stacks are also separated by a small divider.
-        steps.push('v', Blockly.BlockSvg.SEP_SPACE_Y * 1.5);
+        steps.push('a', 8 + ',' + 8 + ' 0 0,1 0,' + 2*8);
         cursorY += Blockly.BlockSvg.SEP_SPACE_Y + 1;
       }
     }

@@ -40,19 +40,25 @@ goog.require('goog.userAgent');
 Blockly.FieldIcon = function(src, opt_alt) {
   this.sourceBlock_ = null;
   // Ensure height and width are numbers.  Strings are bad at math.
-  var height = 24;
-  var width = 24;
+  var height = 28;
+  var width = 28;
   this.height_ = Number(height);
   this.width_ = Number(width);
+  this.iconSize = 0.7;
   this.size_ = {height: this.height_, width: this.width_};
   this.text_ = opt_alt || '';
   // Build the DOM.
   var offsetY = 0;
   this.fieldGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.imageElement_ = Blockly.createSvgElement('image',
-      {'height': this.height_ + 'px',
-       'width': this.width_ + 'px',
+  this.circleElement_ = Blockly.createSvgElement('circle',
+      {'cx': this.width_/2, 'cy': this.height_/2,
+       'r': this.width_/2,
        'y': offsetY}, this.fieldGroup_);
+  this.imageElement_ = Blockly.createSvgElement('image',
+      {'height': this.height_*this.iconSize + 'px',
+       'width': this.width_*this.iconSize + 'px',
+       'x': this.width_ * (1 - this.iconSize) / 2,
+       'y': this.height_ * (1 - this.iconSize) / 2}, this.fieldGroup_);
   this.setValue(src);
   if (goog.userAgent.GECKO) {
     // Due to a Firefox bug which eats mouse events on image elements,
@@ -102,6 +108,10 @@ Blockly.FieldIcon.prototype.init = function(block) {
   // Configure the field to be transparent with respect to tooltips.
   var topElement = this.rectElement_ || this.imageElement_;
   topElement.tooltip = this.sourceBlock_;
+  var rgb = goog.color.hexToRgb(block.getColour());
+  var c = goog.color.darken(rgb, 0.2);
+  c = goog.color.rgbToHex(c[0], c[1], c[2]);
+  this.circleElement_.style.fill = c;
   Blockly.Tooltip && Blockly.Tooltip.bindMouseEvents(topElement);
 };
 
