@@ -36,6 +36,7 @@ goog.require('Blockly.FieldColour');
 goog.require('Blockly.FieldDropdown');
 goog.require('Blockly.FieldDropdownDynamic');
 goog.require('Blockly.FieldImage');
+goog.require('Blockly.FieldIcon');
 goog.require('Blockly.FieldTextInput');
 goog.require('Blockly.FieldVariable');
 goog.require('Blockly.Generator');
