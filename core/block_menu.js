@@ -318,8 +318,8 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     var stalkerY = xyOld.y - xyNewWorkspace.y + 33;
     workspaceBlock.moveBy(stalkerX, stalkerY);
     // Start a dragging operation on the new block.
-    workspaceBlock.startDragX = stalkerX;
-    workspaceBlock.startDragY = stalkerY;
+    workspaceBlock.dx = 0;
+    workspaceBlock.dy = 0;
     block.setStalkerBlock(workspaceBlock);
     block.onMouseDown_(e);
   };

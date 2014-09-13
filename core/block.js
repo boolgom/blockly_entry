@@ -575,6 +575,12 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
   if (this.isInBlockMenu) {
     this.dispose(false, false);
     Blockly.terminateDrag_();
+    this.stalkerBlock.isInBlockMenu = false;
+    this.stalkerBlock.isInFlyout = false;
+    this.stalkerBlock.startDragX = 0;;
+    this.stalkerBlock.startDragY = 0;;
+    this.isInBlockMenu = false;
+    this.isInFlyout = false;
     return;
   }
   if (!this.isDrag && typeof(Entry) == "object") {
@@ -881,6 +887,8 @@ Blockly.Block.prototype.setDragging_ = function(adding) {
  */
 Blockly.Block.prototype.onMouseMove_ = function(e) {
   this.isDrag = true;
+  if (this.stalkerBlock)
+    this.stalkerBlock.isDrag = true;
   this.isEditing = true;
   if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
       e.button == 0) {
@@ -914,10 +922,10 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
     this.svg_.getRootElement().setAttribute('transform',
         'translate(' + x + ', ' + y + ')');
     if (this.stalkerBlock) {
-        var xStalker = this.stalkerBlock.startDragX + dx;
-        var yStalker = this.stalkerBlock.startDragY + dy;
-        this.stalkerBlock.svg_.getRootElement().setAttribute('transform',
-            'translate(' + xStalker + ', ' + yStalker + ')');
+        this.stalkerBlock.moveBy(dx - this.stalkerBlock.dx,
+                                dy - this.stalkerBlock.dy);
+        this.stalkerBlock.dx = dx;
+        this.stalkerBlock.dy = dy;
     }
     // Drag all the nested bubbles.
     for (var i = 0; i < this.draggedBubbles_.length; i++) {
