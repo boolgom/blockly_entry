@@ -397,6 +397,7 @@ Blockly.init_ = function() {
     Blockly.mainWorkspace.scrollbar.resize();
   }
 
+  //Blockly.mainWorkspace.addConnectionAnimation();
   Blockly.mainWorkspace.addTrashcan();
 
   // Load the sounds.

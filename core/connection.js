@@ -385,7 +385,12 @@ Blockly.Connection.prototype.highlight = function() {
     } else {
       steps = 'm -22,0 l 10,11 10,-11';
     }
-    //console.log(Blockly.selected);
+
+    /*
+    if (!this.targetConnection)
+        Blockly.mainWorkspace.connectionAnimation.show_(this.sourceBlock_, this);
+        */
+
     Blockly.Connection.highlightedPath_ = Blockly.createSvgElement('path',
         {'class': 'blocklyHighlightedConnectionPath',
          'd': steps,
@@ -398,6 +403,7 @@ Blockly.Connection.prototype.highlight = function() {
  * Remove the highlighting around this connection.
  */
 Blockly.Connection.prototype.unhighlight = function() {
+  Blockly.mainWorkspace.connectionAnimation.hide_();
   goog.dom.removeNode(Blockly.Connection.highlightedPath_);
   delete Blockly.Connection.highlightedPath_;
 };

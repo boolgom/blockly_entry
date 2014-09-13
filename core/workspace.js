@@ -152,6 +152,16 @@ Blockly.Workspace.prototype.addTrashcan = function() {
 };
 
 /**
+ * Add a connection animation.
+ */
+Blockly.Workspace.prototype.addConnectionAnimation = function() {
+    this.connectionAnimation = new Blockly.ConnectionAnimation();
+    var svgConnectionAnimation = this.connectionAnimation.createDom();
+    this.svgGroup_.insertBefore(svgConnectionAnimation, this.svgBlockCanvas_);
+    this.connectionAnimation.init();
+};
+
+/**
  * Get the SVG element that forms the drawing surface.
  * @return {!Element} SVG element.
  */

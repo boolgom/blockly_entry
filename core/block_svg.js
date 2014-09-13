@@ -666,6 +666,7 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
         }
       }
     }
+    this.height = row.height;
   }
 
   // Compute the statement edge.
