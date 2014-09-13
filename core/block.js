@@ -572,16 +572,10 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
  * @private
  */
 Blockly.Block.prototype.onMouseUp_ = function(e) {
-  if (this.isInBlockMenu) {
-    this.dispose(false, false);
-    Blockly.terminateDrag_();
-    this.stalkerBlock.isInBlockMenu = false;
-    this.stalkerBlock.isInFlyout = false;
-    this.stalkerBlock.startDragX = 0;;
-    this.stalkerBlock.startDragY = 0;;
-    this.isInBlockMenu = false;
-    this.isInFlyout = false;
-    return;
+  if (this.isFromBlockMenu) {
+    this.stalkerBlock.dispose(false, false);
+    this.stalkerBlock = null;
+    this.isFromBlockMenu = false;
   }
   if (!this.isDrag && typeof(Entry) == "object") {
     //fire instant event
@@ -922,10 +916,10 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
     this.svg_.getRootElement().setAttribute('transform',
         'translate(' + x + ', ' + y + ')');
     if (this.stalkerBlock) {
-        this.stalkerBlock.moveBy(dx - this.stalkerBlock.dx,
-                                dy - this.stalkerBlock.dy);
-        this.stalkerBlock.dx = dx;
-        this.stalkerBlock.dy = dy;
+      var sx = this.stalkerBlock.startDragX + dx;
+      var sy = this.stalkerBlock.startDragY + dy;
+      this.stalkerBlock.svg_.getRootElement().setAttribute('transform',
+          'translate(' + sx + ', ' + sy + ')');
     }
     // Drag all the nested bubbles.
     for (var i = 0; i < this.draggedBubbles_.length; i++) {

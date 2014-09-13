@@ -96,7 +96,6 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
         var block = Blockly.Xml.domToBlock(
             /** @type {!Blockly.Workspace} */ (this.workspace_), xml);
         block.isInFlyout = true;
-        block.isInBlockMenu = true;
         blocks.push(block);
         gaps.push(margin);
       }
@@ -307,6 +306,8 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     }
     var xyNew = Blockly.getSvgXY_(svgRootNew);
     block.moveBy(xyOld.x - xyNew.x, xyOld.y - xyNew.y);
+    block.startDragX = xyOld.x - xyNew.x;
+    block.startDragY = xyOld.y - xyNew.y;
 
     var workspaceBlock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml);
     var svgRootNewWorkspace = workspaceBlock.getSvgRoot();
@@ -320,8 +321,9 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     // Start a dragging operation on the new block.
     workspaceBlock.dx = 0;
     workspaceBlock.dy = 0;
-    block.setStalkerBlock(workspaceBlock);
-    block.onMouseDown_(e);
+    workspaceBlock.isInBlockMenu = true;
+    workspaceBlock.setStalkerBlock(block);
+    workspaceBlock.onMouseDown_(e);
   };
 };
 
