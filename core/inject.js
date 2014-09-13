@@ -242,6 +242,7 @@ Blockly.createDom_ = function(container) {
       if (Blockly.hasBlockMenu) {
         var blockMenu = new Blockly.BlockMenu(Blockly.hasBlockMenu);
         Blockly.mainWorkspace.blockMenu = blockMenu;
+        Blockly.bindEvent_(blockMenu.workspace_.svgGroup_, 'mousewheel', blockMenu, Blockly.onMouseWheelFlyout_);
       }
       /**
        * @type {!Blockly.Flyout}
