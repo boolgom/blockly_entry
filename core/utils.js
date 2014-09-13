@@ -220,14 +220,24 @@ Blockly.getRelativeXY_ = function(element) {
 Blockly.getSvgXY_ = function(element) {
   var x = 0;
   var y = 0;
-  do {
-    // Loop through this block and every parent.
-    var xy = Blockly.getRelativeXY_(element);
-    x += xy.x;
-    y += xy.y;
-    element = element.parentNode;
-  } while (element && (element != Blockly.svg &&
-                       element != Blockly.mainWorkspace.blockMenu.menuView_));
+  if (Blockly.mainWorkspace.blockMenu) {
+    do {
+      // Loop through this block and every parent.
+      var xy = Blockly.getRelativeXY_(element);
+      x += xy.x;
+      y += xy.y;
+      element = element.parentNode;
+    } while (element && (element != Blockly.svg &&
+                          element != Blockly.mainWorkspace.blockMenu.menuView_));
+  } else {
+    do {
+      // Loop through this block and every parent.
+      var xy = Blockly.getRelativeXY_(element);
+      x += xy.x;
+      y += xy.y;
+      element = element.parentNode;
+    } while (element && (element != Blockly.svg));
+  }
   return {x: x, y: y};
 };
 
