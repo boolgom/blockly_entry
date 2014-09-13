@@ -61,8 +61,10 @@ Blockly.BlockMenu = function(element) {
   }, this.view_);
   var blockMenu = this;
   this.workspace_ = new Blockly.Workspace(
-      function() {return blockMenu.getMetrics_();}, null);
+      function() {return blockMenu.getMetrics_();},
+      function(ratio) {return blockMenu.setMetrics_(ratio);});
   this.menuView_.appendChild(this.workspace_.createDom());
+  this.scrollbar_ = new Blockly.Scrollbar(this.workspace_, false, false);
   this.onResizeWrapper_ = Blockly.bindEvent_(window,
       goog.events.EventType.RESIZE, this, this.syncViewSize_);
 };
@@ -368,18 +370,43 @@ Blockly.BlockMenu.prototype.reflow = function() {
  */
 Blockly.BlockMenu.prototype.getMetrics_ = function() {
   var rect = this.view_.getBoundingClientRect();
+  try {
+    var optionBox = this.workspace_.getCanvas().getBBox();
+  } catch (e) {
+    // Firefox has trouble with hidden elements (Bug 528969).
+    var optionBox = {height: 0, y: 0};
+  }
   var metrics = {
-    viewHeight: svgSize.height,
-    viewWidth: svgSize.width,
-    contentHeight: bottomEdge - topEdge,
-    contentWidth: rightEdge - leftEdge,
-    viewTop: -Blockly.mainWorkspace.scrollY,
-    viewLeft: -Blockly.mainWorkspace.scrollX,
-    contentTop: topEdge,
-    contentLeft: leftEdge,
+    viewHeight: rect.height,
+    viewWidth: rect.width,
+    contentHeight: optionBox.height + optionBox.y,
+    viewTop: -this.workspace_.scrollY,
+    contentTop: 0,
     absoluteTop: 0,
-    absoluteLeft: absoluteLeft
+    absoluteLeft: 0
   };
+  return metrics;
+};
+
+/**
+ * Sets the Y translation of the flyout to match the scrollbars.
+ * @param {!Object} yRatio Contains a y property which is a float
+ *     between 0 and 1 specifying the degree of scrolling.
+ * @private
+ */
+Blockly.BlockMenu.prototype.setMetrics_ = function(yRatio) {
+  var metrics = this.getMetrics_();
+  // This is a fix to an apparent race condition.
+  if (!metrics) {
+    return;
+  }
+  if (goog.isNumber(yRatio.y)) {
+    this.workspace_.scrollY =
+        -metrics.contentHeight * yRatio.y - metrics.contentTop;
+  }
+  var y = this.workspace_.scrollY + metrics.absoluteTop;
+  this.workspace_.getCanvas().setAttribute('transform',
+                                           'translate(0,' + y + ')');
 };
 
 /**
@@ -408,4 +435,5 @@ Blockly.BlockMenu.prototype.syncViewSize_ = function() {
   var rect = this.view_.getBoundingClientRect();
   this.menuView_.style.width = rect.width;
   this.menuView_.style.height = rect.height;
+  this.scrollbar_.resize();
 };
