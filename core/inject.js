@@ -89,6 +89,10 @@ Blockly.parseOptions_ = function(options) {
     if (hasTrashcan === undefined) {
       hasTrashcan = hasCategories;
     }
+    var hasBlockMenu = options['blockmenu'];
+    if (!hasBlockMenu instanceof HTMLElement) {
+      hasBlockMenu = false;
+    }
     var hasCollapse = options['collapse'];
     if (hasCollapse === undefined) {
       hasCollapse = hasCategories;
@@ -107,6 +111,7 @@ Blockly.parseOptions_ = function(options) {
     hasCategories: hasCategories,
     hasScrollbars: hasScrollbars,
     hasTrashcan: hasTrashcan,
+    hasBlockMenu: hasBlockMenu,
     languageTree: tree
   };
 };
@@ -234,6 +239,10 @@ Blockly.createDom_ = function(container) {
     if (Blockly.hasCategories) {
       Blockly.Toolbox.createDom(svg, container);
     } else {
+      if (Blockly.hasBlockMenu) {
+        var blockMenu = new Blockly.BlockMenu(Blockly.hasBlockMenu);
+        Blockly.mainWorkspace.blockMenu = blockMenu;
+      }
       /**
        * @type {!Blockly.Flyout}
        * @private

@@ -29,6 +29,8 @@ goog.provide('Blockly');
 
 // Blockly core dependencies.
 goog.require('Blockly.Block');
+goog.require('Blockly.BlockMenu');
+goog.require('Blockly.FieldIcon');
 goog.require('Blockly.Connection');
 goog.require('Blockly.FieldAngle');
 goog.require('Blockly.FieldCheckbox');
@@ -447,6 +449,8 @@ Blockly.onKeyDown_ = function(e) {
 Blockly.terminateDrag_ = function() {
   Blockly.Block.terminateDrag_();
   Blockly.Flyout.terminateDrag_();
+  if (Blockly.mainWorkspace.blockMenu)
+    Blockly.BlockMenu.terminateDrag_();
 };
 
 /**
