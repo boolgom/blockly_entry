@@ -403,7 +403,7 @@ Blockly.Connection.prototype.highlight = function() {
  * Remove the highlighting around this connection.
  */
 Blockly.Connection.prototype.unhighlight = function() {
-  Blockly.mainWorkspace.connectionAnimation.hide_();
+  //Blockly.mainWorkspace.connectionAnimation.hide_();
   goog.dom.removeNode(Blockly.Connection.highlightedPath_);
   delete Blockly.Connection.highlightedPath_;
 };
