@@ -564,9 +564,6 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
   e.stopPropagation();
 };
 
-Blockly.Block.prototype.onMouseMove_ = function(e) {
-};
-
 /**
  * Handle a mouse-up anywhere in the SVG pane.  Is only registered when a
  * block is clicked.  We can't use mouseUp on the block since a fast-moving
@@ -575,6 +572,11 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
  * @private
  */
 Blockly.Block.prototype.onMouseUp_ = function(e) {
+  if (this.isInBlockMenu) {
+    this.dispose(false, false);
+    Blockly.terminateDrag_();
+    return;
+  }
   if (!this.isDrag && typeof(Entry) == "object") {
     //fire instant event
     //Entry.fireInstantEvent(this.id);
@@ -911,6 +913,12 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
     var y = this.startDragY + dy;
     this.svg_.getRootElement().setAttribute('transform',
         'translate(' + x + ', ' + y + ')');
+    if (this.stalkerBlock) {
+        var xStalker = this.stalkerBlock.startDragX + dx;
+        var yStalker = this.stalkerBlock.startDragY + dy;
+        this.stalkerBlock.svg_.getRootElement().setAttribute('transform',
+            'translate(' + xStalker + ', ' + yStalker + ')');
+    }
     // Drag all the nested bubbles.
     for (var i = 0; i < this.draggedBubbles_.length; i++) {
       var commentData = this.draggedBubbles_[i];
@@ -1918,4 +1926,15 @@ Blockly.Block.prototype.render = function() {
   if (Blockly.Realtime.isEnabled() && !Blockly.Realtime.withinSync) {
     Blockly.Realtime.blockChanged(this);
   }
+};
+
+/**
+ * Set stalker block. Stalker block is only for BlockMenu block.
+ * It provide graphical effect when adding blocks on block menu.
+ * @param {Blockly.Block} targetBlock
+ */
+Blockly.Block.prototype.setStalkerBlock = function(targetBlock) {
+  if (!this.isInBlockMenu)
+    return;
+  this.stalkerBlock = targetBlock;
 };

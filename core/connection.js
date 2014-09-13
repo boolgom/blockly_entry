@@ -538,6 +538,8 @@ Blockly.Connection.prototype.closest = function(maxLimit, dx, dy) {
  * @private
  */
 Blockly.Connection.prototype.checkType_ = function(otherConnection) {
+  if (this.sourceBlock_.isInFlyout || otherConnection.sourceBlock_.isInFlyout)
+    return false;
   if (!this.check_ || !otherConnection.check_) {
     // One or both sides are promiscuous enough that anything will fit.
     return true;

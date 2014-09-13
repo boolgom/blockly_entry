@@ -38,6 +38,7 @@ Blockly.BlockSvg = function(block) {
   this.block_ = block;
   // Create core elements for the block.
   this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
+  this.svgGroup_.block = this.block_;
   this.svgPathDark_ = Blockly.createSvgElement('path',
       {'class': 'blocklyPathDark', 'transform': 'translate(0, 1)'},
       this.svgGroup_);
@@ -448,6 +449,8 @@ Blockly.BlockSvg.prototype.addSelect = function() {
   Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
                     'blocklySelected');
   // Move the selected block to the top of the stack.
+  if (this.svgGroup_.block.isInBlockMenu)
+    return;
   this.svgGroup_.parentNode.appendChild(this.svgGroup_);
 };
 

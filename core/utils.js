@@ -226,7 +226,8 @@ Blockly.getSvgXY_ = function(element) {
     x += xy.x;
     y += xy.y;
     element = element.parentNode;
-  } while (element && element != Blockly.svg);
+  } while (element && (element != Blockly.svg &&
+                       element != Blockly.mainWorkspace.blockMenu.menuView_));
   return {x: x, y: y};
 };
 
