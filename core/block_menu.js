@@ -315,7 +315,7 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     }
     var xyNewWorkspace = Blockly.getSvgXY_(svgRootNewWorkspace);
     var stalkerX = xyOld.x - xyNewWorkspace.x - 202;
-    var stalkerY = xyOld.y - xyNewWorkspace.y + 33;
+    var stalkerY = xyOld.y - xyNewWorkspace.y + 36;
     workspaceBlock.moveBy(stalkerX, stalkerY);
     // Start a dragging operation on the new block.
     workspaceBlock.dx = 0;
