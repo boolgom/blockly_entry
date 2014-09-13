@@ -93,6 +93,8 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
       if (xml.tagName && xml.tagName.toUpperCase() == 'BLOCK') {
         var block = Blockly.Xml.domToBlock(
             /** @type {!Blockly.Workspace} */ (this.workspace_), xml);
+        block.isInFlyout = true;
+        block.isInBlockMenu = true;
         blocks.push(block);
         gaps.push(margin);
       }
@@ -117,9 +119,19 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
     var root = block.getSvgRoot();
     var blockHW = block.getHeightWidth();
     var x = 10;
-    if (block.outputConnection)
-        x += blockHW.height/2;
+    if (block.outputConnection) {
+      x += blockHW.height/2;
+    } else if (!block.previousConnection && block.nextConnection){
+      cursorY += 10;
+    } else if (!block.previousConnection && !block.nextConnection){
+      cursorY += 10;
+    } else {
+      cursorY += 7;
+    }
     block.moveBy(x, cursorY);
+    if (!block.previousConnection && !block.nextConnection){
+      cursorY += 10;
+    }
     cursorY += blockHW.height + gaps[i];
 
     // Create an invisible rectangle under the block to act as a button.  Just
@@ -150,14 +162,8 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
       Blockly.bindEvent_(root, 'mousedown', null,
         function () {Entry.container.changeVariableName();});
     }
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
-        block.svg_.addSelect));
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
-        block.svg_.removeSelect));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mousedown', null,
         this.createBlockFunc_(block)));
-    this.listeners_.push(Blockly.bindEvent_(rect, 'mouseout', block.svg_,
-        block.svg_.removeSelect));
   }
   this.width_ = 0;
 
@@ -286,6 +292,7 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     }
     var xml = Blockly.Xml.blockToDom_(originBlock);
     var block = Blockly.Xml.domToBlock(blockMenu.workspace_, xml);
+    block.isInBlockMenu = true;
     // Place it in the same spot as the blockMenu copy.
     var svgRootOld = originBlock.getSvgRoot();
     if (!svgRootOld) {
@@ -298,12 +305,20 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     }
     var xyNew = Blockly.getSvgXY_(svgRootNew);
     block.moveBy(xyOld.x - xyNew.x, xyOld.y - xyNew.y);
-    if (blockMenu.autoClose) {
-      blockMenu.hide();
-    } else {
-      //blockMenu.filterForCapacity_();
+
+    var workspaceBlock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml);
+    var svgRootNewWorkspace = workspaceBlock.getSvgRoot();
+    if (!svgRootNewWorkspace) {
+      throw 'block is not rendered.';
     }
+    var xyNewWorkspace = Blockly.getSvgXY_(svgRootNewWorkspace);
+    var stalkerX = xyOld.x - xyNewWorkspace.x - 202;
+    var stalkerY = xyOld.y - xyNewWorkspace.y + 36;
+    workspaceBlock.moveBy(stalkerX, stalkerY);
     // Start a dragging operation on the new block.
+    workspaceBlock.startDragX = stalkerX;
+    workspaceBlock.startDragY = stalkerY;
+    block.setStalkerBlock(workspaceBlock);
     block.onMouseDown_(e);
   };
 };
@@ -372,7 +387,6 @@ Blockly.BlockMenu.prototype.getMetrics_ = function() {
  * @private
  */
 Blockly.BlockMenu.terminateDrag_ = function() {
-    console.log('asdf');
   if (Blockly.BlockMenu.onMouseUpWrapper_) {
     Blockly.unbindEvent_(Blockly.BlockMenu.onMouseUpWrapper_);
     Blockly.BlockMenu.onMouseUpWrapper_ = null;
