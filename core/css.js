@@ -83,7 +83,7 @@ Blockly.Css.CONTENT = [
   '}',
   '.blocklyHighlightedConnectionPath {',
   '  stroke-width: 2px;',
-  '  stroke: #1D55B4;',
+  '  stroke: #3a3737;',
   '  fill: none;',
   '}',
   '.blocklyPathLight {',

@@ -383,8 +383,9 @@ Blockly.Connection.prototype.highlight = function() {
     if (Blockly.RTL) {
       steps = 'm 20,0 h -5 l -6,4 -3,0 -6,-4 h -5';
     } else {
-      steps = 'm -20,0 l 7,0 0,6 12,0 0,-6 7,0';
+      steps = 'm -22,0 l 10,11 10,-11';
     }
+    //console.log(Blockly.selected);
     Blockly.Connection.highlightedPath_ = Blockly.createSvgElement('path',
         {'class': 'blocklyHighlightedConnectionPath',
          'd': steps,
