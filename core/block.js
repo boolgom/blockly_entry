@@ -572,10 +572,10 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
  * @private
  */
 Blockly.Block.prototype.onMouseUp_ = function(e) {
-  if (this.isFromBlockMenu) {
+  if (this.isInBlockMenu) {
     this.stalkerBlock.dispose(false, false);
     this.stalkerBlock = null;
-    this.isFromBlockMenu = false;
+    this.isInBlockMenu = false;
   }
   if (!this.isDrag && typeof(Entry) == "object") {
     //fire instant event
