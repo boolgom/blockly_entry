@@ -70,6 +70,8 @@ Blockly.ScrollbarPair.prototype.dispose = function() {
  */
 Blockly.ScrollbarPair.prototype.resize = function() {
   // Look up the host metrics once, and use for both scrollbars.
+  if (Blockly.scrollBarOff)
+      return;
   var hostMetrics = this.workspace_.getMetrics();
   if (!hostMetrics) {
     // Host element is likely not visible.

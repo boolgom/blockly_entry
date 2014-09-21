@@ -279,6 +279,7 @@ Blockly.BlockMenu.prototype.onMouseMove_ = function(e) {
 Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
   var blockMenu = this;
   return function(e) {
+    Blockly.scrollBarOff = true;
     if (Blockly.isRightButton(e)) {
       // Right-click.  Don't create a block, let the context menu show.
       return;
@@ -319,8 +320,6 @@ Blockly.BlockMenu.prototype.createBlockFunc_ = function(originBlock) {
     var stalkerY = xyOld.y - xyNewWorkspace.y + 36;
     workspaceBlock.moveBy(stalkerX, stalkerY);
     // Start a dragging operation on the new block.
-    workspaceBlock.dx = 0;
-    workspaceBlock.dy = 0;
     workspaceBlock.isInBlockMenu = true;
     workspaceBlock.setStalkerBlock(block);
     workspaceBlock.onMouseDown_(e);
