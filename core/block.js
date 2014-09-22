@@ -880,6 +880,7 @@ Blockly.Block.prototype.setDragging_ = function(adding) {
  * @private
  */
 Blockly.Block.prototype.onMouseMove_ = function(e) {
+  Blockly.scrollBarOff = false;
   this.isDrag = true;
   if (this.stalkerBlock)
     this.stalkerBlock.isDrag = true;
