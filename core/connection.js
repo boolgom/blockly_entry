@@ -120,7 +120,7 @@ Blockly.Connection.prototype.connect = function(otherConnection) {
         // Unable to reattach orphan.  Bump it off to the side.
         var blockType = orphanBlock.type.toUpperCase();
         if (blockType == 'NUMBER' || blockType == 'TRUE' ||
-            blockType == 'FALSE') {
+            blockType == 'FALSE' || blockType == 'TEXT') {
             orphanBlock.dispose(true, false);
         } else {
           window.setTimeout(function() {
@@ -252,6 +252,13 @@ Blockly.Connection.prototype.disconnect = function() {
     } else if (otherConnection.check_ &&
         otherConnection.check_[0].toUpperCase() == 'BOOLEAN') {
       var xml = Blockly.Xml.textToDom('<xml><block type="True">' +
+                                      '</block></xml>');
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      otherConnection.connect(newblock.outputConnection);
+    } else if (otherConnection.check_ &&
+        otherConnection.check_[0].toUpperCase() == 'STRING') {
+      var xml = Blockly.Xml.textToDom('<xml><block type="text">' +
+                                      '<field name="NAME">안녕!</field>' +
                                       '</block></xml>');
       var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
       otherConnection.connect(newblock.outputConnection);
