@@ -181,6 +181,7 @@ Blockly.FieldDropdownDynamic.prototype.showEditor_ = function() {
     var rectElement = /** @type {SVGRectElement} */ (gElement.firstChild);
     var textElement = /** @type {SVGTextElement} */ (gElement.lastChild);
     svgOptions.appendChild(gElement);
+
     // Add a checkmark next to the current item.
     if (!checkElement && value == this.value_) {
       checkElement = Blockly.createSvgElement('text',
@@ -244,6 +245,7 @@ Blockly.FieldDropdownDynamic.prototype.showEditor_ = function() {
   } else {
     x = xy.x - Blockly.ContextMenu.X_PADDING + Blockly.BlockSvg.SEP_SPACE_X / 2;
   }
+
   svgGroup.setAttribute('transform',
       'translate(' + x + ', ' + (xy.y + borderBBox.height) + ')');
 };

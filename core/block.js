@@ -777,6 +777,9 @@ Blockly.Block.prototype.showContextMenu_ = function(xy) {
       enabled: true,
       callback: function() {
         block.dispose(true, true);
+        if (typeof(Entry) == "object") {
+          Entry.dispatchEvent("entryBlocklyChanged");
+        }
       }
     };
     options.push(deleteOption);
