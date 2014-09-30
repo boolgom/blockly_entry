@@ -247,20 +247,20 @@ Blockly.Connection.prototype.disconnect = function() {
       var xml = Blockly.Xml.textToDom('<xml><block type="number">' +
                                       '<field name="NUM">10</field>' +
                                       '</block></xml>');
-      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.childNodes[0]);
       otherConnection.connect(newblock.outputConnection);
     } else if (otherConnection.check_ &&
         otherConnection.check_[0].toUpperCase() == 'BOOLEAN') {
       var xml = Blockly.Xml.textToDom('<xml><block type="True">' +
                                       '</block></xml>');
-      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.childNodes[0]);
       otherConnection.connect(newblock.outputConnection);
     } else if (otherConnection.check_ &&
         otherConnection.check_[0].toUpperCase() == 'STRING') {
       var xml = Blockly.Xml.textToDom('<xml><block type="text">' +
                                       '<field name="NAME">안녕!</field>' +
                                       '</block></xml>');
-      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.children[0]);
+      var newblock = Blockly.Xml.domToBlock(Blockly.mainWorkspace, xml.childNodes[0]);
       otherConnection.connect(newblock.outputConnection);
     }
     this.sourceBlock_.isDrag = false;
