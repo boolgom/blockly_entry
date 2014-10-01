@@ -122,6 +122,9 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
     var x = 10;
     if (block.outputConnection) {
       x += blockHW.height/2;
+        if (block.type == 'get_variable' || block.type == 'get_canvas_input_value') {
+            cursorY += 12;
+        }
     } else if (!block.previousConnection && block.nextConnection){
       cursorY += 10;
     } else if (!block.previousConnection && !block.nextConnection){
@@ -134,9 +137,11 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
       cursorY += 10;
     }
 
-    if (block.type == 'ask_and_wait' || block.type == 'hide_variable') {
-        cursorY += 12;
-    }
+
+
+    //if (block.type == 'ask_and_wait' || block.type == 'hide_variable')
+        //cursorY += 12;
+
     cursorY += blockHW.height + gaps[i];
 
     // Create an invisible rectangle under the block to act as a button.  Just
