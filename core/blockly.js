@@ -608,23 +608,37 @@ Blockly.loadAudio_ = function(filenames, name) {
     // No browser support for Audio.
     return;
   }
-  var sound;
-  var audioTest = new window['Audio']();
+
   for (var i = 0; i < filenames.length; i++) {
     var filename = filenames[i];
-    var ext = filename.match(/\.(\w+)$/);
-    if (ext && audioTest.canPlayType('audio/' + ext[1])) {
-      // Found an audio format we can play.
-      sound = new window['Audio'](Blockly.pathToBlockly + filename);
-      break;
-    }
+    var path = Blockly.pathToBlockly + filename;
+    var id = filename.match(/\/([^.]+)./)[1];
+    createjs.Sound.registerSound(path, id, 4);
+    break;
   }
+  //var sound;
+  //var audioTest = new window['Audio']();
+  //for (var i = 0; i < filenames.length; i++) {
+    //var filename = filenames[i];
+    //var ext = filename.match(/\.(\w+)$/);
+    //if (ext && audioTest.canPlayType('audio/' + ext[1])) {
+      //// Found an audio format we can play.
+      //sound = new window['Audio'](Blockly.pathToBlockly + filename);
+      //break;
+    //}
+  //}
+  //// To force the browser to load the sound, play it, but at nearly zero volume.
+  //if (sound && sound.play) {
+    //sound.volume = 0.01;
+    //sound.play();
+    //Blockly.SOUNDS_[name] = sound;
+  //}
   // To force the browser to load the sound, play it, but at nearly zero volume.
-  if (sound && sound.play) {
-    sound.volume = 0.01;
-    sound.play();
-    Blockly.SOUNDS_[name] = sound;
-  }
+  //if (sound && sound.play) {
+    //sound.volume = 0.01;
+    //sound.play();
+    //Blockly.SOUNDS_[name] = sound;
+  //}
 };
 
 /**
@@ -634,22 +648,23 @@ Blockly.loadAudio_ = function(filenames, name) {
  * @param {?number} opt_volume Volume of sound (0-1).
  */
 Blockly.playAudio = function(name, opt_volume) {
-  var sound = Blockly.SOUNDS_[name];
-  if (sound) {
-    var mySound;
-    var ie9 = goog.userAgent.DOCUMENT_MODE &&
-              goog.userAgent.DOCUMENT_MODE === 9;
-    if (ie9 || goog.userAgent.IPAD || goog.userAgent.ANDROID) {
-      // Creating a new audio node causes lag in IE9, Android and iPad. Android
-      // and IE9 refetch the file from the server, iPad uses a singleton audio
-      // node which must be deleted and recreated for each new audio tag.
-      mySound = sound;
-    } else {
-      mySound = sound.cloneNode();
-    }
-    mySound.volume = (opt_volume === undefined ? 1 : opt_volume);
-    mySound.play();
-  }
+  createjs.Sound.play(name);
+  //var sound = Blockly.SOUNDS_[name];
+  //if (sound) {
+    //var mySound;
+    //var ie9 = goog.userAgent.DOCUMENT_MODE &&
+              //goog.userAgent.DOCUMENT_MODE === 9;
+    //if (ie9 || goog.userAgent.IPAD || goog.userAgent.ANDROID) {
+      //// Creating a new audio node causes lag in IE9, Android and iPad. Android
+      //// and IE9 refetch the file from the server, iPad uses a singleton audio
+      //// node which must be deleted and recreated for each new audio tag.
+      //mySound = sound;
+    //} else {
+      //mySound = sound.cloneNode();
+    //}
+    //mySound.volume = (opt_volume === undefined ? 1 : opt_volume);
+    //mySound.play();
+  //}
 };
 
 /**
