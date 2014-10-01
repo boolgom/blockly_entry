@@ -122,6 +122,7 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
     var x = 10;
     if (block.outputConnection) {
       x += blockHW.height/2;
+        console.log(block);
     } else if (!block.previousConnection && block.nextConnection){
       cursorY += 10;
     } else if (!block.previousConnection && !block.nextConnection){
@@ -132,6 +133,10 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
     block.moveBy(x, cursorY);
     if (!block.previousConnection && !block.nextConnection){
       cursorY += 10;
+    }
+
+    if (block.type == 'ask_and_wait' || block.type == 'hide_variable') {
+        cursorY += 12;
     }
     cursorY += blockHW.height + gaps[i];
 
