@@ -137,11 +137,6 @@ Blockly.BlockMenu.prototype.show = function(xmlList) {
       cursorY += 10;
     }
 
-
-
-    //if (block.type == 'ask_and_wait' || block.type == 'hide_variable')
-        //cursorY += 12;
-
     cursorY += blockHW.height + gaps[i];
 
     // Create an invisible rectangle under the block to act as a button.  Just
