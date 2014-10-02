@@ -46,9 +46,13 @@ Blockly.Field = function(text) {
   this.borderRect_ = Blockly.createSvgElement('rect',
       {'rx': 0,
        'ry': 0,
-       'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
+       'x': -Blockly.BlockSvg.SEP_SPACE_X / 2 ,
        'y': 0,
        'height': 16}, this.fieldGroup_);
+  if (this instanceof Blockly.FieldTextInput) {
+      this.borderRect_.setAttribute('x', -Blockly.BlockSvg.SEP_SPACE_X / 2 + 4);
+      this.borderRect_.setAttribute('y', '-2');
+  }
   this.textElement_ = Blockly.createSvgElement('text',
       {'class': 'blocklyText', 'y': 11}, this.fieldGroup_);
   this.size_ = {height: 14, width: 0};
